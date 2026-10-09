@@ -12,6 +12,8 @@ import { playHitAnimation } from './hit-animation.js';
 const DEFAULT_VELOCITY = 0.8;
 const KICK_LOGO_TEXT = 'Tambour';
 const CENTER = 0.5;
+/** Nombre de tirants par type de fût ; les cymbales n'en ont pas. */
+const LUG_COUNTS = { drum: 6, snare: 10, kick: 10 };
 
 /**
  * @typedef {import('../audio/kits.js').Kit} Kit
@@ -73,7 +75,7 @@ export function animateHit(container, pieceId, velocity = DEFAULT_VELOCITY, poin
  * @returns {HTMLElement}
  */
 function createPieceElement(piece, keyLabel, { compact, fallbackIndex, fallbackCount }) {
-  const { look, landscape, portrait } = getPieceLayout(
+  const { look, landscape, portrait, lugs } = getPieceLayout(
     piece.id,
     fallbackIndex,
     fallbackCount,
@@ -93,7 +95,7 @@ function createPieceElement(piece, keyLabel, { compact, fallbackIndex, fallbackC
   const body = createElement('span', 'piece__body');
   const head = createElement('span', 'piece__head');
   head.append(createElement('span', 'piece__ripples'), createElement('span', 'piece__glow'));
-  body.append(head);
+  body.append(...createLugs(lugs ?? LUG_COUNTS[look] ?? 0), head);
 
   if (look === 'kick') {
     const logo = createElement('span', 'piece__logo');
@@ -114,6 +116,21 @@ function createPieceElement(piece, keyLabel, { compact, fallbackIndex, fallbackC
 
   element.append(body, label);
   return element;
+}
+
+/**
+ * Crée les tirants répartis sur le cercle d'un fût.
+ * @param {number} count
+ * @returns {HTMLElement[]}
+ */
+function createLugs(count) {
+  return Array.from({ length: count }, (_, index) => {
+    const lug = createElement('span', 'piece__lug');
+    lug.setAttribute('aria-hidden', 'true');
+    // Décalage d'un demi-pas : aucun tirant ne tombe pile en haut, sous le nom de la pièce.
+    lug.style.setProperty('--angle', `${((index + 0.5) * 360) / count}deg`);
+    return lug;
+  });
 }
 
 /**

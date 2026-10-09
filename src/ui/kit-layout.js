@@ -6,7 +6,7 @@
  * calculées pour que les pièces ne se chevauchent pas et gardent au moins 64 px sur téléphone.
  */
 
-/** @typedef {'drum' | 'snare' | 'kick' | 'cymbal' | 'hihat'} PieceLook */
+/** @typedef {'drum' | 'snare' | 'kick' | 'cymbal' | 'hihat' | 'hand'} PieceLook */
 
 /**
  * @typedef {object} Placement
@@ -18,6 +18,7 @@
 /**
  * @typedef {object} PieceLayout
  * @property {PieceLook} look Matière et animation de la pièce.
+ * @property {number} [lugs] Nombre de tirants, si différent de celui du type de pièce.
  * @property {Placement} landscape
  * @property {Placement} portrait
  */
@@ -61,6 +62,7 @@ export const PIECE_LAYOUTS = {
   },
   'tom-low': {
     look: 'drum',
+    lugs: 8,
     landscape: { x: 67, y: 66, size: 17 },
     portrait: { x: 78, y: 62, size: 32 },
   },
@@ -99,9 +101,13 @@ const ID_ALIASES = {
   cymbal: 'crash',
 };
 
-const FALLBACK_SIZE_LANDSCAPE = 14;
-const FALLBACK_SIZE_PORTRAIT = 26;
-const FALLBACK_Y = 50;
+/** Proportions largeur / hauteur des deux scènes, comme dans main.css. */
+const STAGE_RATIO = { landscape: 2, portrait: 0.55 };
+/** Part de la case de grille occupée par une pièce, le reste sert d'espace entre elles. */
+const GRID_FILL = 0.86;
+/** Pièces sans placement dédié qui se jouent à la main : peau sans cercle chromé. */
+const HAND_PERCUSSION =
+  /^(bongo|conga|tumba|darbuka|djembe|frame|cajon|tabla|udu|clap|shaker|tambourine)/;
 
 /**
  * Ramène un id de pièce à celui de son placement (`tom-floor` devient `tom-low`).
@@ -122,8 +128,31 @@ export function isCompactKit(pieceIds) {
 }
 
 /**
- * Donne le placement d'une pièce. Une pièce inconnue reçoit un rendu de tambour générique,
- * rangé sur une ligne avec les autres inconnues, pour que tout kit reste jouable.
+ * Place la n-ième case d'une grille qui remplit la scène, dernière ligne centrée.
+ * @param {number} index
+ * @param {number} count
+ * @param {number} ratio Largeur / hauteur de la scène.
+ * @returns {Placement}
+ */
+function placeInGrid(index, count, ratio) {
+  const columns = Math.min(count, Math.ceil(Math.sqrt(count * ratio)));
+  const rows = Math.ceil(count / columns);
+  const row = Math.floor(index / columns);
+  const inRow = row === rows - 1 ? count - row * columns : columns;
+  const column = index - row * columns;
+  const cellWidth = 100 / columns;
+  // Une pièce ronde de taille s (en % de largeur) occupe s × ratio % de la hauteur.
+  const cellHeightAsWidth = 100 / rows / ratio;
+  return {
+    x: 50 + (column - (inRow - 1) / 2) * cellWidth,
+    y: ((row + 0.5) / rows) * 100,
+    size: Math.min(cellWidth, cellHeightAsWidth) * GRID_FILL,
+  };
+}
+
+/**
+ * Donne le placement d'une pièce. Une pièce inconnue est rangée avec les autres inconnues
+ * dans une grille qui remplit la scène, pour que tout kit reste jouable.
  * @param {string} pieceId
  * @param {number} fallbackIndex Rang de la pièce parmi les inconnues.
  * @param {number} fallbackCount Nombre total de pièces inconnues.
@@ -136,11 +165,10 @@ export function getPieceLayout(pieceId, fallbackIndex = 0, fallbackCount = 1, co
   if (known)
     return compact && COMPACT_PLACEMENTS[id] ? { ...known, ...COMPACT_PLACEMENTS[id] } : known;
 
-  const x = ((fallbackIndex + 1) / (fallbackCount + 1)) * 100;
   return {
-    look: 'drum',
-    landscape: { x, y: FALLBACK_Y, size: FALLBACK_SIZE_LANDSCAPE },
-    portrait: { x, y: FALLBACK_Y, size: FALLBACK_SIZE_PORTRAIT },
+    look: HAND_PERCUSSION.test(id) ? 'hand' : 'drum',
+    landscape: placeInGrid(fallbackIndex, fallbackCount, STAGE_RATIO.landscape),
+    portrait: placeInGrid(fallbackIndex, fallbackCount, STAGE_RATIO.portrait),
   };
 }
 
