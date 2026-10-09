@@ -1,0 +1,153 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-stage);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-m);
+  gap: var(--space-m);
+  min-height: 100dvh;
+}
+
+h1 {
+  font-family: var(--font-title);
+  font-weight: normal;
+  margin: 0;
+}
+
+.hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Vue de dessus du kit. */
+.drum-kit {
+  width: 100%;
+  max-width: var(--kit-max-width);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    'crash tom-high tom-floor'
+    'hihat snare tom-floor'
+    '. kick .';
+  gap: var(--space-m);
+  /* Le navigateur ne doit ni zoomer ni défiler quand on tape sur le kit : chaque appui est une frappe. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.pad {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  min-width: var(--pad-min-size);
+  border-radius: 50%;
+  border: 6px solid var(--color-skin-edge);
+  background: radial-gradient(circle, var(--color-skin) 55%, var(--color-skin-edge) 130%);
+  color: var(--color-ink);
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-s);
+  cursor: pointer;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pad[data-piece-id='crash'] {
+  grid-area: crash;
+}
+.pad[data-piece-id='hihat-closed'] {
+  grid-area: hihat;
+}
+.pad[data-piece-id='tom-high'] {
+  grid-area: tom-high;
+}
+.pad[data-piece-id='snare'] {
+  grid-area: snare;
+}
+.pad[data-piece-id='tom-floor'] {
+  grid-area: tom-floor;
+  align-self: center;
+}
+.pad[data-piece-id='kick'] {
+  grid-area: kick;
+  border-color: var(--color-kick);
+  background: radial-gradient(circle, var(--color-kick-skin) 50%, var(--color-kick) 120%);
+}
+.pad[data-piece-id='crash'],
+.pad[data-piece-id='hihat-closed'] {
+  border-color: var(--color-metal-edge);
+  background: radial-gradient(circle, var(--color-metal) 20%, var(--color-metal-edge) 140%);
+}
+
+.pad__name {
+  font-size: clamp(0.7rem, 2.5vw, 1rem);
+  text-align: center;
+  pointer-events: none;
+}
+
+.pad__key {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  padding: 0 var(--space-xs);
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pad--hit {
+  animation: press 120ms ease-out;
+}
+
+.pad__ripple {
+  position: absolute;
+  width: 20%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-ripple);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: var(--hit-strength, 1);
+  animation: ripple 450ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes press {
+  50% {
+    transform: scale(calc(1 - 0.05 * var(--hit-strength, 1)));
+  }
+}
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pad--hit,
+  .pad__ripple {
+    animation-duration: 1ms;
+  }
+}
