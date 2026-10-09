@@ -24,11 +24,14 @@ export function initTheme(button) {
   if (saved) document.documentElement.dataset.theme = saved;
   updateButton(button);
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (event) => {
     const next = getActiveTheme() === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     saveTheme(next);
     updateButton(button);
+    // Après un clic à la souris ou au doigt, rendre le focus : sinon Espace rebasculerait le
+    // thème au lieu de jouer la grosse caisse. Au clavier (detail = 0), le focus reste.
+    if (event.detail > 0) button.blur();
   });
   systemDarkQuery.addEventListener('change', () => updateButton(button));
 }
