@@ -37,15 +37,14 @@ function startMidi() {
   listenToMidi(handleHit);
 }
 
-// Le navigateur n'autorise le son qu'après un geste : on débloque au tout premier appui,
-// en capture pour passer avant la frappe elle-même.
+// Le navigateur n'autorise le son qu'après un geste, en capture pour passer avant la frappe.
+// L'écoute reste en place : iOS resuspend le contexte après un verrouillage d'écran ou un
+// appel, et seul un nouveau geste peut le relancer.
 function unlockAudio() {
-  engine.unlock();
+  if (engine.context.state !== 'running') engine.unlock();
   // La demande d'autorisation MIDI attend aussi un geste, pour ne pas surgir au chargement.
   if (!midiStarted) startMidi();
   hintElement.hidden = true;
-  window.removeEventListener('pointerdown', unlockAudio, true);
-  window.removeEventListener('keydown', unlockAudio, true);
 }
 window.addEventListener('pointerdown', unlockAudio, true);
 window.addEventListener('keydown', unlockAudio, true);
