@@ -7,6 +7,7 @@ import './styles/main.css';
 import { createEngine } from './audio/engine.js';
 import { KITS } from './audio/kits.js';
 import { getKeyLabels, listenToKeyboard } from './input/keyboard.js';
+import { isMidiAllowed, listenToMidi } from './input/midi.js';
 import { listenToPointer } from './input/pointer.js';
 import { setupMusic } from './music.js';
 import { animateHit, renderDrumKit } from './ui/drum-kit.js';
@@ -30,10 +31,18 @@ function handleHit(hit) {
   animateHit(kitElement, hit.pieceId, hit.velocity, hit);
 }
 
+let midiStarted = false;
+function startMidi() {
+  midiStarted = true;
+  listenToMidi(handleHit);
+}
+
 // Le navigateur n'autorise le son qu'après un geste : on débloque au tout premier appui,
 // en capture pour passer avant la frappe elle-même.
 function unlockAudio() {
   engine.unlock();
+  // La demande d'autorisation MIDI attend aussi un geste, pour ne pas surgir au chargement.
+  if (!midiStarted) startMidi();
   hintElement.hidden = true;
   window.removeEventListener('pointerdown', unlockAudio, true);
   window.removeEventListener('keydown', unlockAudio, true);
@@ -45,6 +54,7 @@ renderDrumKit(kitElement, kit, await getKeyLabels(kit));
 listenToPointer(kitElement, handleHit);
 listenToKeyboard(kit, handleHit);
 music.selectKit(music.getPreferredKitId() ?? kit.id);
+if (await isMidiAllowed()) startMidi();
 
 // Accès depuis la console pour essayer le moteur (ex. : tambour.engine.play('snare')).
 window.tambour = { engine, kit };
