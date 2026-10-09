@@ -2,6 +2,7 @@
   "id": "acoustic",
   "name": "Batterie acoustique",
   "sampleRate": 44100,
+  "source": "VCSL (CC0 1.0)",
   "pieces": [
     {
       "id": "kick",
@@ -68,7 +69,7 @@
     {
       "id": "snare-rimshot",
       "name": "Caisse claire (rimshot)",
-      "gain": 0.9,
+      "gain": 0.85,
       "velocities": [
         {
           "layer": "v1",
@@ -223,7 +224,7 @@
     {
       "id": "hihat-closed",
       "name": "Charleston fermé",
-      "gain": 0.55,
+      "gain": 0.6,
       "velocities": [
         {
           "layer": "v1",
@@ -254,7 +255,7 @@
     {
       "id": "hihat-open",
       "name": "Charleston ouvert",
-      "gain": 0.55,
+      "gain": 0.6,
       "velocities": [
         {
           "layer": "v1",
@@ -285,7 +286,7 @@
     {
       "id": "hihat-pedal",
       "name": "Charleston au pied",
-      "gain": 0.45,
+      "gain": 0.5,
       "velocities": [
         {
           "layer": "v1",
@@ -316,30 +317,27 @@
     {
       "id": "crash",
       "name": "Crash",
-      "gain": 0.6,
+      "gain": 0.65,
       "velocities": [
         {
           "layer": "v1",
           "max": 0.45,
           "files": [
-            "crash-v1-1",
-            "crash-v1-2"
+            "crash-v1-1"
           ]
         },
         {
           "layer": "v2",
           "max": 0.72,
           "files": [
-            "crash-v2-1",
-            "crash-v2-2"
+            "crash-v2-1"
           ]
         },
         {
           "layer": "v3",
           "max": 1.0,
           "files": [
-            "crash-v3-1",
-            "crash-v3-2"
+            "crash-v3-1"
           ]
         }
       ]
@@ -347,30 +345,27 @@
     {
       "id": "splash",
       "name": "Splash",
-      "gain": 0.5,
+      "gain": 0.55,
       "velocities": [
         {
           "layer": "v1",
           "max": 0.45,
           "files": [
-            "splash-v1-1",
-            "splash-v1-2"
+            "splash-v1-1"
           ]
         },
         {
           "layer": "v2",
           "max": 0.72,
           "files": [
-            "splash-v2-1",
-            "splash-v2-2"
+            "splash-v2-1"
           ]
         },
         {
           "layer": "v3",
           "max": 1.0,
           "files": [
-            "splash-v3-1",
-            "splash-v3-2"
+            "splash-v3-1"
           ]
         }
       ]
@@ -378,30 +373,27 @@
     {
       "id": "ride",
       "name": "Ride",
-      "gain": 0.5,
+      "gain": 0.55,
       "velocities": [
         {
           "layer": "v1",
           "max": 0.45,
           "files": [
-            "ride-v1-1",
-            "ride-v1-2"
+            "ride-v1-1"
           ]
         },
         {
           "layer": "v2",
           "max": 0.72,
           "files": [
-            "ride-v2-1",
-            "ride-v2-2"
+            "ride-v2-1"
           ]
         },
         {
           "layer": "v3",
           "max": 1.0,
           "files": [
-            "ride-v3-1",
-            "ride-v3-2"
+            "ride-v3-1"
           ]
         }
       ]
@@ -415,24 +407,21 @@
           "layer": "v1",
           "max": 0.45,
           "files": [
-            "ride-bell-v1-1",
-            "ride-bell-v1-2"
+            "ride-bell-v1-1"
           ]
         },
         {
           "layer": "v2",
           "max": 0.72,
           "files": [
-            "ride-bell-v2-1",
-            "ride-bell-v2-2"
+            "ride-bell-v2-1"
           ]
         },
         {
           "layer": "v3",
           "max": 1.0,
           "files": [
-            "ride-bell-v3-1",
-            "ride-bell-v3-2"
+            "ride-bell-v3-1"
           ]
         }
       ]
@@ -440,30 +429,27 @@
     {
       "id": "cowbell",
       "name": "Cloche (cowbell)",
-      "gain": 0.45,
+      "gain": 0.5,
       "velocities": [
         {
           "layer": "v1",
           "max": 0.45,
           "files": [
-            "cowbell-v1-1",
-            "cowbell-v1-2"
+            "cowbell-v1-1"
           ]
         },
         {
           "layer": "v2",
           "max": 0.72,
           "files": [
-            "cowbell-v2-1",
-            "cowbell-v2-2"
+            "cowbell-v2-1"
           ]
         },
         {
           "layer": "v3",
           "max": 1.0,
           "files": [
-            "cowbell-v3-1",
-            "cowbell-v3-2"
+            "cowbell-v3-1"
           ]
         }
       ]

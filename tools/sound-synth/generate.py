@@ -1,9 +1,9 @@
-"""Génère le kit « acoustic » par synthèse (aucun échantillon externe).
+"""Génère le kit « synth » par synthèse (aucun échantillon externe).
 
 Chaque pièce est produite en 3 vélocités × 2 variantes, puis encodée en
-.ogg (Vorbis) et .mp3 de secours dans public/sounds/acoustic/.
+.ogg (Vorbis) et .mp3 de secours dans public/sounds/synth/.
 
-Usage : python3 tools/sound-synth/generate.py [--out public/sounds/acoustic]
+Usage : python3 tools/sound-synth/generate.py [--out public/sounds/synth]
 Dépendances : numpy, ffmpeg (avec libvorbis et libmp3lame).
 """
 
@@ -296,12 +296,12 @@ def encode(wav_path, out_base):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", default="public/sounds/acoustic")
+    parser.add_argument("--out", default="public/sounds/synth")
     parser.add_argument("--wav", help="Dossier où garder aussi les .wav (pour vérifier)")
     args = parser.parse_args()
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
-    manifest = {"id": "acoustic", "name": "Batterie acoustique", "sampleRate": SAMPLE_RATE, "pieces": []}
+    manifest = {"id": "synth", "name": "Batterie synthétique", "sampleRate": SAMPLE_RATE, "pieces": []}
 
     with tempfile.TemporaryDirectory() as tmp:
         for seed_base, (piece_id, piece) in enumerate(PIECES.items()):
