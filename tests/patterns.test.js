@@ -1,13 +1,21 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { describeStep, findPattern, PATTERNS, STEPS_PER_BAR } from '../src/audio/patterns.js';
+import {
+  describeStep,
+  findPattern,
+  PATTERNS,
+  pickDrumPart,
+  STEPS_PER_BAR,
+} from '../src/audio/patterns.js';
 
 test('chaque ambiance a des grilles de 16 pas valides', () => {
   for (const pattern of PATTERNS) {
     assert.equal(pattern.bass.length, STEPS_PER_BAR, pattern.id);
     assert.equal(pattern.shaker.length, STEPS_PER_BAR, pattern.id);
-    for (const [piece, grid] of Object.entries(pattern.drums)) {
-      assert.match(grid, /^[xo.-]{16}$/, `${pattern.id} ${piece}`);
+    for (const part of Object.values(pattern.drums)) {
+      for (const [piece, grid] of Object.entries(part)) {
+        assert.match(grid, /^[xo.-]{16}$/, `${pattern.id} ${piece}`);
+      }
     }
     assert.ok(pattern.chords.length > 0);
   }
@@ -32,4 +40,39 @@ test('describeStep traduit la grille de batterie en vélocités', () => {
     ['kick', 'hihat-closed'],
   );
   assert.ok(hits[0].velocity > hits[1].velocity);
+});
+
+test('pickDrumPart choisit la partie jouable avec le kit courant', () => {
+  const groove = findPattern('groove');
+  assert.equal(pickDrumPart(groove, null), groove.drums.drumset);
+  assert.equal(
+    pickDrumPart(groove, new Set(['kick', 'snare', 'hihat-closed'])),
+    groove.drums.drumset,
+  );
+  assert.equal(
+    pickDrumPart(groove, new Set(['cajon-bass', 'cajon-slap', 'clap'])),
+    groove.drums.percussion,
+  );
+  const world = new Set([
+    'bongo-high',
+    'bongo-low',
+    'conga-open',
+    'conga-muted',
+    'tumba',
+    'darbuka-doum',
+    'darbuka-tek',
+    'darbuka-ka',
+    'cajon-bass',
+    'cajon-slap',
+    'frame-low',
+    'frame-high',
+    'clap',
+  ]);
+  for (const pattern of PATTERNS) {
+    const part = pickDrumPart(pattern, world);
+    assert.ok(
+      Object.keys(part).every((id) => world.has(id)),
+      pattern.id,
+    );
+  }
 });

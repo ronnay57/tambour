@@ -50,11 +50,20 @@ function unlockAudio() {
 window.addEventListener('pointerdown', unlockAudio, true);
 window.addEventListener('keydown', unlockAudio, true);
 
-renderDrumKit(kitElement, kit, await getKeyLabels(kit));
-listenToPointer(kitElement, handleHit);
-listenToKeyboard(kit, handleHit);
-music.selectKit(music.getPreferredKitId() ?? kit.id);
-if (await isMidiAllowed()) startMidi();
-
 // Accès depuis la console pour essayer le moteur (ex. : tambour.engine.play('snare')).
 window.tambour = { engine, kit };
+
+let stopKeyboard = null;
+/** Affiche un kit et relie ses touches ; appelé à nouveau à chaque changement de kit. */
+async function showKit(shownKit) {
+  renderDrumKit(kitElement, shownKit, await getKeyLabels(shownKit));
+  stopKeyboard?.();
+  stopKeyboard = listenToKeyboard(shownKit, handleHit);
+  window.tambour.kit = shownKit;
+}
+
+await showKit(kit);
+listenToPointer(kitElement, handleHit);
+music.onKitChange(showKit);
+music.selectKit(music.getPreferredKitId() ?? kit.id);
+if (await isMidiAllowed()) startMidi();

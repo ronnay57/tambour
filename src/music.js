@@ -15,7 +15,7 @@ import { loadPreferences, savePreferences } from './ui/preferences.js';
  * @param {object} options.engine  moteur audio : `context`, `output`, `play(pieceId, velocity, when)`, `loadKit(kit)`
  * @param {{ id: string }[]} options.kits  kits décrits dans kits.js
  * @param {HTMLElement} options.root  conteneur des commandes
- * @returns {{ captureHit(hit: { pieceId: string, velocity: number }): void, selectKit(id: string): Promise<boolean> }}
+ * @returns {{ captureHit(hit: { pieceId: string, velocity: number }): void, selectKit(id: string): Promise<boolean>, onKitChange(listener: (kit: object) => void): void, getPreferredKitId(): string|null }}
  */
 export function setupMusic({ engine, kits, root }) {
   const preferences = loadPreferences();
@@ -55,6 +55,7 @@ export function setupMusic({ engine, kits, root }) {
     });
     loops.setLoopVolume(preferences.loopVolume ?? DEFAULT_LOOP_VOLUME);
     loops.setDrums(state.drums);
+    loops.setAvailablePieces(engine.listSounds());
     recorder = createRecorder({ context, play });
   }
 
@@ -158,7 +159,11 @@ export function setupMusic({ engine, kits, root }) {
     refresh();
     try {
       const selected = await kitSelector.select(id);
-      if (selected) state.kitId = id;
+      if (selected) {
+        state.kitId = id;
+        // Les boucles jouent la partie rythmique qui convient au nouveau kit.
+        loops?.setAvailablePieces(engine.listSounds());
+      }
       return selected;
     } finally {
       state.kitLoading = false;
@@ -234,6 +239,10 @@ export function setupMusic({ engine, kits, root }) {
       recorder?.capture(hit);
     },
     selectKit,
+    /** Prévient quand un autre kit devient le kit courant, pour redessiner la scène. */
+    onKitChange(listener) {
+      kitSelector.onChange((id) => listener(kits.find((kit) => kit.id === id)));
+    },
     /** Kit enregistré dans les préférences du joueur, s'il existe encore. */
     getPreferredKitId() {
       return kits.some((kit) => kit.id === preferences.kitId) ? preferences.kitId : null;

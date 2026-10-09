@@ -1,7 +1,7 @@
 // Boucles d'accompagnement et métronome, calés sur une même horloge.
 
 import { createClock, DEFAULT_BPM } from './clock.js';
-import { describeStep, findPattern, STEPS_PER_BAR } from './patterns.js';
+import { describeStep, findPattern, pickDrumPart, STEPS_PER_BAR } from './patterns.js';
 import { playBass, playClick, playPad, playShaker } from './synth.js';
 
 export const DEFAULT_LOOP_VOLUME = 0.8;
@@ -41,6 +41,7 @@ export function createLoopPlayer({
   let pattern = patternId ? (findPattern(patternId) ?? null) : null;
   let metronome = false;
   let drums = true;
+  let availablePieces = null;
   let loopVolume = DEFAULT_LOOP_VOLUME;
   let session = null;
   let startTime = null;
@@ -55,7 +56,7 @@ export function createLoopPlayer({
       playClick(context, session.click, step % STEPS_PER_BAR === 0, time);
     }
     if (!pattern) return;
-    const info = describeStep(pattern, step);
+    const info = describeStep(pattern, step, pickDrumPart(pattern, availablePieces));
     if (info.barStart)
       playPad(context, session.loop, info.chord, time, duration * STEPS_PER_BAR, pattern.tone);
     if (info.bassNote !== null) {
@@ -165,6 +166,13 @@ export function createLoopPlayer({
     },
     isMetronomeOn() {
       return metronome;
+    },
+    /**
+     * Indique les pièces du kit courant, pour jouer la partie rythmique adaptée.
+     * @param {string[]} pieceIds
+     */
+    setAvailablePieces(pieceIds) {
+      availablePieces = new Set(pieceIds);
     },
     /** @param {boolean} enabled  batterie dans la boucle */
     setDrums(enabled) {
