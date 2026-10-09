@@ -1,25 +1,139 @@
-/* Valeurs de base de l'interface. Provisoires : la palette définitive vient avec l'étape 3. */
+/*
+ * Jetons de design : toute couleur, police, taille ou durée utilisée ailleurs vient d'ici.
+ * Thème clair « atelier » par défaut, thème sombre « scène » via [data-theme='dark']
+ * ou la préférence système quand l'utilisateur n'a rien choisi.
+ */
+
 :root {
-  --color-stage: #1d1712;
-  --color-text: #f4ead8;
-  --color-text-muted: #b8a88f;
-  --color-skin: #efe3c8;
-  --color-skin-edge: #b08a57;
-  --color-metal: #d9b45a;
-  --color-metal-edge: #8a6a22;
-  --color-kick: #3a2a1f;
-  --color-kick-skin: #e4d6b8;
-  --color-ripple: rgb(255 255 255 / 0.55);
-  --color-ink: #2a2016;
+  /* Typographie */
+  --font-display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-brand: clamp(1.5rem, 4vw, 2.25rem);
 
-  --font-title: 'Georgia', serif;
-  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Espacements */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
 
-  --space-xs: 4px;
-  --space-s: 8px;
-  --space-m: 16px;
-  --space-l: 32px;
+  /* Formes */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-pill: 999px;
+  --hit-min-size: 64px;
 
-  --pad-min-size: 72px;
-  --kit-max-width: 720px;
+  /* Durées des animations */
+  --duration-fast: 120ms;
+  --duration-medium: 240ms;
+  --duration-theme: 400ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Matières : ne changent pas avec le thème, ce sont celles de l'instrument */
+  --skin-light: #fbf6ea;
+  --skin-mid: #efe4cc;
+  --skin-dark: #d9c8a6;
+  --chrome-light: #f2f2f0;
+  --chrome-mid: #b9bcc0;
+  --chrome-dark: #6d7176;
+  --brass-light: #f6dc8c;
+  --brass-mid: #d2a64a;
+  --brass-dark: #8a6420;
+  --wood-light: #b8743f;
+  --wood-mid: #8b4a22;
+  --wood-dark: #4f2510;
+  --shell-light: #c4473a;
+  --shell-mid: #8e2420;
+  --shell-dark: #4a0e0c;
+  --skin-collar: rgba(120, 92, 50, 0.16);
+  --skin-edge: rgba(60, 42, 20, 0.38);
+  --skin-wear: rgba(120, 100, 70, 0.1);
+  /* Grain de peau sablée : bruit fractal très léger, répété sur la peau. */
+  --texture-coated: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0 0.16 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --hide-light: #ecd3a4;
+  --hide-mid: #d6b27a;
+  --hide-dark: #a9824c;
+  --kick-skin: #1d1a18;
+  --kick-skin-light: #3a3532;
+  --brass-hole: #2a1d08;
+  --kick-logo: #f3e9d6;
+
+  /* Thème clair « atelier » */
+  --color-bg: #f4ecdf;
+  --color-bg-accent: #ead9bd;
+  --color-surface: #fffaf1;
+  --color-surface-strong: #ffffff;
+  --color-border: #d8c6a8;
+  --color-text: #2a1f17;
+  --color-text-muted: #6f5e4c;
+  --color-accent: #c8462a;
+  --color-accent-contrast: #ffffff;
+  --color-record: #d6332a;
+  --color-focus: #2563eb;
+  --color-ripple: rgba(200, 70, 42, 0.85);
+  --color-ripple-soft: rgba(200, 70, 42, 0.25);
+  --color-glow: rgba(255, 140, 50, 0.6);
+  --color-floor: rgba(120, 82, 46, 0.12);
+  --color-key-bg: rgba(42, 31, 23, 0.78);
+  --color-key-text: #fffaf1;
+  --shadow-piece: 0 10px 22px rgba(60, 38, 18, 0.28), 0 2px 4px rgba(60, 38, 18, 0.25);
+  --shadow-surface: 0 1px 2px rgba(60, 38, 18, 0.08), 0 8px 24px rgba(60, 38, 18, 0.08);
+
+  color-scheme: light;
+}
+
+/* Thème sombre « scène », appliqué quand l'utilisateur le choisit… */
+:root[data-theme='dark'] {
+  --color-bg: #120f0d;
+  --color-bg-accent: #2a1e15;
+  --color-surface: #1d1814;
+  --color-surface-strong: #272019;
+  --color-border: #3a3027;
+  --color-text: #f3e9d6;
+  --color-text-muted: #ad9c86;
+  --color-accent: #ff7a4d;
+  --color-accent-contrast: #1a0f0a;
+  --color-record: #ff4d42;
+  --color-focus: #8ab4ff;
+  --color-ripple: rgba(255, 150, 90, 0.9);
+  --color-ripple-soft: rgba(255, 150, 90, 0.3);
+  --color-glow: rgba(255, 160, 80, 0.5);
+  --color-floor: rgba(255, 190, 120, 0.06);
+  --color-key-bg: rgba(10, 8, 6, 0.8);
+  --color-key-text: #f3e9d6;
+  --shadow-piece: 0 14px 30px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
+  --shadow-surface: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
+}
+
+/* … ou quand le système est sombre et que l'utilisateur n'a rien choisi. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #120f0d;
+    --color-bg-accent: #2a1e15;
+    --color-surface: #1d1814;
+    --color-surface-strong: #272019;
+    --color-border: #3a3027;
+    --color-text: #f3e9d6;
+    --color-text-muted: #ad9c86;
+    --color-accent: #ff7a4d;
+    --color-accent-contrast: #1a0f0a;
+    --color-record: #ff4d42;
+    --color-focus: #8ab4ff;
+    --color-ripple: rgba(255, 150, 90, 0.9);
+    --color-ripple-soft: rgba(255, 150, 90, 0.3);
+    --color-glow: rgba(255, 160, 80, 0.5);
+    --color-floor: rgba(255, 190, 120, 0.06);
+    --color-key-bg: rgba(10, 8, 6, 0.8);
+    --color-key-text: #f3e9d6;
+    --shadow-piece: 0 14px 30px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
+    --shadow-surface: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    color-scheme: dark;
+  }
 }

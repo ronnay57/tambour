@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 
 test('aucun problème d’accessibilité grave (WCAG 2.2 A et AA)', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.pad').first()).toBeVisible();
+  await expect(page.locator('#drum-kit [data-piece-id]').first()).toBeVisible();
 
   const { violations } = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
