@@ -11,7 +11,7 @@ Le but : qu'on puisse ouvrir n'importe quel fichier et le comprendre en quelques
   - fonctions et variables : `camelCase`
   - constantes globales : `UPPER_SNAKE_CASE`
   - fonctions qui agissent : un verbe (`playSound`, `loadKit`)
-- **Exports nommés** uniquement, pas d'`export default`.
+- **Exports nommés** uniquement, pas d'`export default`. Seule exception : les fichiers de configuration d'outils (`vite.config.js`, `eslint.config.js`), dont l'outil exige un export par défaut.
 - **JSDoc** sur toute fonction exportée : rôle, paramètres, valeur de retour.
 - **Pas de nombres magiques** : les valeurs (volumes, durées, tempo par défaut) sont des constantes nommées.
 - **Commentaires** : ils expliquent pourquoi, pas ce que fait le code.
