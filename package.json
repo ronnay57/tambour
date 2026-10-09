@@ -10,10 +10,13 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.56.1",
     "eslint": "^10.0.0",
     "globals": "^17.0.0",
     "prettier": "^3.6.0",

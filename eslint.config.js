@@ -11,6 +11,12 @@ export const config = [
       globals: { ...globals.browser },
     },
   },
+  {
+    files: ['*.config.js', 'tests/e2e/**'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
 ];
 
 // ESLint exige un export par défaut pour son fichier de configuration.
