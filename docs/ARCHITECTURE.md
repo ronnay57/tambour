@@ -35,15 +35,23 @@ tambour/
 │   │   ├── keyboard.js   Touches clavier vers pièces
 │   │   └── pointer.js    Souris et toucher (multi-doigts)
 │   ├── ui/
-│   │   ├── drum-kit.js   Affichage du kit et animations de frappe
+│   │   ├── drum-kit.js   Affichage du kit : renderDrumKit(container, kit)
+│   │   ├── kit-layout.js Placement de chaque pièce en paysage et en portrait (données)
+│   │   ├── hit-animation.js Animations de frappe (Web Animations API) : animateHit(pieceId, velocity, point?)
+│   │   ├── theme.js      Bascule thème clair/sombre, mémorisée dans le navigateur
 │   │   ├── controls.js   Kit, boucle, tempo, métronome, enregistrement
 │   │   └── preferences.js Préférences du joueur, gardées dans le navigateur
 │   └── styles/
 │       ├── tokens.css    Couleurs, typographies, espacements
 │       └── main.css
+├── .prettierignore       Exclut docs/ et *.md du formatage automatique
 ├── tests/                Tests unitaires (node --test tests/)
 └── docs/
 ```
+
+## Page
+
+`index.html` contient `<main id="stage">` avec le kit dans `#drum-kit`, et une zone `#transport` réservée aux contrôles de boucle et d'enregistrement (masquée tant qu'elle est vide). Chaque pièce affichée porte `data-piece-id`, ce qui permet à `input/pointer.js` de retrouver la pièce frappée.
 
 ## Principes
 
@@ -57,7 +65,7 @@ tambour/
 
 ```
 Touche / doigt ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(pieceId, velocity)
-                                                             ├──► ui/drum-kit.animate(pieceId)
+                                                             ├──► ui/hit-animation.animateHit(pieceId, velocity, point)
                                                              └──► music.captureHit(hit)   (enregistrement)
 ```
 
