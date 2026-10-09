@@ -125,7 +125,12 @@ export function setupMusic({ engine, kits, root }) {
     const withLoop = meta.loopOffset !== null && (meta.patternId || meta.metronome);
     if (withLoop) {
       stopLoop();
-      Object.assign(state, { patternId: meta.patternId, bpm: meta.bpm, drums: meta.drums, metronome: meta.metronome });
+      Object.assign(state, {
+        patternId: meta.patternId,
+        bpm: meta.bpm,
+        drums: meta.drums,
+        metronome: meta.metronome,
+      });
       loops.setPattern(meta.patternId);
       loops.setBpm(meta.bpm);
       loops.setDrums(meta.drums);

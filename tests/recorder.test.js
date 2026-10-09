@@ -7,7 +7,11 @@ function setup() {
   const context = createFakeContext();
   const timer = createFakeTimer();
   const played = [];
-  const recorder = createRecorder({ context, timer, play: (pieceId, velocity, when) => played.push({ pieceId, velocity, when }) });
+  const recorder = createRecorder({
+    context,
+    timer,
+    play: (pieceId, velocity, when) => played.push({ pieceId, velocity, when }),
+  });
   return { context, timer, played, recorder };
 }
 
@@ -62,7 +66,11 @@ test('la réécoute rejoue chaque frappe à son heure, au fil de la planificatio
 
 test('stopPlayback interrompt la réécoute', () => {
   const { context, timer, played, recorder } = setup();
-  recorder.startPlayback({ duration: 3, meta: {}, hits: [{ time: 2, pieceId: 'kick', velocity: 1 }] });
+  recorder.startPlayback({
+    duration: 3,
+    meta: {},
+    hits: [{ time: 2, pieceId: 'kick', velocity: 1 }],
+  });
   recorder.stopPlayback();
   context.currentTime = 3;
   timer.runIntervals();

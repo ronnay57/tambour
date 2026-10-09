@@ -8,6 +8,7 @@ import { createEngine } from './audio/engine.js';
 import { KITS } from './audio/kits.js';
 import { getKeyLabels, listenToKeyboard } from './input/keyboard.js';
 import { listenToPointer } from './input/pointer.js';
+import { setupMusic } from './music.js';
 import { animateHit, renderDrumKit } from './ui/drum-kit.js';
 
 const kit = KITS[0];
@@ -16,11 +17,13 @@ const hintElement = document.querySelector('#hint');
 
 // BASE_URL suit la configuration Vite, pour que les sons se trouvent aussi sous /tambour/.
 const engine = createEngine({ soundsUrl: `${import.meta.env.BASE_URL}sounds/` });
+const music = setupMusic({ engine, kits: KITS, root: document.querySelector('#transport') });
 
 /** @param {import('./input/keyboard.js').Hit} hit */
 function handleHit(hit) {
   // Le son passe avant l'animation : c'est lui dont on perçoit le retard.
   engine.play(hit.pieceId, hit.velocity);
+  music.captureHit(hit);
   animateHit(kitElement, hit.pieceId, hit.velocity, hit);
 }
 
@@ -38,7 +41,7 @@ window.addEventListener('keydown', unlockAudio, true);
 renderDrumKit(kitElement, kit, await getKeyLabels(kit));
 listenToPointer(kitElement, handleHit);
 listenToKeyboard(kit, handleHit);
-engine.loadKit(kit);
+music.selectKit(music.getPreferredKitId() ?? kit.id);
 
 // Accès depuis la console pour essayer le moteur (ex. : tambour.engine.play('snare')).
 window.tambour = { engine, kit };

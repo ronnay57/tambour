@@ -14,7 +14,12 @@ test('les pas sont régulièrement espacés et planifiés en avance', () => {
   const context = createFakeContext();
   const timer = createFakeTimer();
   const steps = [];
-  const clock = createClock({ context, timer, bpm: 120, onStep: (step, time) => steps.push({ step, time }) });
+  const clock = createClock({
+    context,
+    timer,
+    bpm: 120,
+    onStep: (step, time) => steps.push({ step, time }),
+  });
   const start = clock.start();
   for (let t = 0; t <= 2; t += 0.025) {
     context.currentTime = t;

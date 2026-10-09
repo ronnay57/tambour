@@ -65,7 +65,15 @@ function createLowpass(context, destination, tone) {
  */
 export function playBass(context, destination, midi, time, duration, tone = 'warm') {
   const filter = createLowpass(context, destination, tone);
-  const { gain, end } = createEnvelope(context, filter, time, BASS_LEVEL, 0.005, duration, BASS_RELEASE_SECONDS);
+  const { gain, end } = createEnvelope(
+    context,
+    filter,
+    time,
+    BASS_LEVEL,
+    0.005,
+    duration,
+    BASS_RELEASE_SECONDS,
+  );
   const osc = context.createOscillator();
   osc.type = BASS_WAVE[tone] ?? BASS_WAVE.warm;
   osc.frequency.setValueAtTime(midiToFrequency(midi), time);
@@ -133,7 +141,15 @@ export function playShaker(context, destination, intensity, time) {
   filter.type = 'highpass';
   filter.frequency.value = SHAKER_HIGHPASS_HZ;
   filter.connect(destination);
-  const { gain, end } = createEnvelope(context, filter, time, SHAKER_LEVEL * intensity, 0.002, 0, SHAKER_DECAY_SECONDS);
+  const { gain, end } = createEnvelope(
+    context,
+    filter,
+    time,
+    SHAKER_LEVEL * intensity,
+    0.002,
+    0,
+    SHAKER_DECAY_SECONDS,
+  );
   const source = context.createBufferSource();
   source.buffer = getNoiseBuffer(context);
   source.connect(gain);
@@ -149,7 +165,15 @@ export function playShaker(context, destination, intensity, time) {
  * @param {number} time
  */
 export function playClick(context, destination, accent, time) {
-  const { gain, end } = createEnvelope(context, destination, time, CLICK_LEVEL, 0.001, 0, CLICK_DECAY_SECONDS);
+  const { gain, end } = createEnvelope(
+    context,
+    destination,
+    time,
+    CLICK_LEVEL,
+    0.001,
+    0,
+    CLICK_DECAY_SECONDS,
+  );
   const osc = context.createOscillator();
   osc.type = 'square';
   osc.frequency.setValueAtTime(accent ? CLICK_ACCENT_HZ : CLICK_HZ, time);

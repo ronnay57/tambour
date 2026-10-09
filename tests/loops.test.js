@@ -33,7 +33,13 @@ test('le métronome seul ne joue que des clics, un par temps', () => {
   const context = createFakeContext();
   const timer = createFakeTimer();
   const pieces = [];
-  const player = createLoopPlayer({ context, timer, output: context.destination, bpm: 120, playPiece: (id) => pieces.push(id) });
+  const player = createLoopPlayer({
+    context,
+    timer,
+    output: context.destination,
+    bpm: 120,
+    playPiece: (id) => pieces.push(id),
+  });
   player.setMetronome(true);
   const start = player.start();
   run(player, context, timer, 1.9);
@@ -49,7 +55,13 @@ test('sans batterie ou à volume nul, aucune pièce du kit ne sonne', () => {
   const context = createFakeContext();
   const timer = createFakeTimer();
   const pieces = [];
-  const player = createLoopPlayer({ context, timer, output: context.destination, patternId: 'afro', playPiece: (id) => pieces.push(id) });
+  const player = createLoopPlayer({
+    context,
+    timer,
+    output: context.destination,
+    patternId: 'afro',
+    playPiece: (id) => pieces.push(id),
+  });
   player.setLoopVolume(0);
   player.start();
   run(player, context, timer, 1);

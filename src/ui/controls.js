@@ -58,7 +58,11 @@ function createOption(value, label) {
  * @returns {{ update(state: ControlsState): void, showBeat(beat: number|null): void }}
  */
 export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, actions) {
-  const kitSelect = createElement('select', { id: 'kit-select' }, kits.map((kit) => createOption(kit.id, kit.label)));
+  const kitSelect = createElement(
+    'select',
+    { id: 'kit-select' },
+    kits.map((kit) => createOption(kit.id, kit.label)),
+  );
   const patternSelect = createElement('select', { id: 'pattern-select' }, [
     createOption('', 'Aucune'),
     ...patterns.map((pattern) => createOption(pattern.id, pattern.label)),
@@ -74,7 +78,9 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
   });
   const bpmOutput = createElement('output', { for: 'bpm-input', class: 'music-controls__bpm' });
   const metronomeInput = createElement('input', { id: 'metronome-input', type: 'checkbox' });
-  const beatDots = Array.from({ length: BEATS_PER_BAR }, () => createElement('span', { class: 'music-controls__beat' }));
+  const beatDots = Array.from({ length: BEATS_PER_BAR }, () =>
+    createElement('span', { class: 'music-controls__beat' }),
+  );
   const volumeInput = createElement('input', {
     id: 'loop-volume',
     type: 'range',
@@ -88,7 +94,9 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
 
   root.append(
     createGroup('Kit', [createElement('label', { for: 'kit-select', text: 'Kit' }), kitSelect]),
-    createGroup('Boucle', [createElement('label', { for: 'pattern-select', text: 'Boucle' }), patternSelect,
+    createGroup('Boucle', [
+      createElement('label', { for: 'pattern-select', text: 'Boucle' }),
+      patternSelect,
       createElement('label', { class: 'music-controls__toggle' }, [drumsInput, ' Batterie']),
       playButton,
     ]),
@@ -99,12 +107,17 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
       createElement('label', { class: 'music-controls__toggle' }, [metronomeInput, ' Métronome']),
       createElement('span', { class: 'music-controls__beats', 'aria-hidden': 'true' }, beatDots),
     ]),
-    createGroup('Volume des boucles', [createElement('label', { for: 'loop-volume', text: 'Volume boucles' }), volumeInput]),
+    createGroup('Volume des boucles', [
+      createElement('label', { for: 'loop-volume', text: 'Volume boucles' }),
+      volumeInput,
+    ]),
     createGroup('Enregistrement', [recordButton, playbackButton]),
   );
 
   kitSelect.addEventListener('change', () => actions.selectKit(kitSelect.value));
-  patternSelect.addEventListener('change', () => actions.selectPattern(patternSelect.value || null));
+  patternSelect.addEventListener('change', () =>
+    actions.selectPattern(patternSelect.value || null),
+  );
   drumsInput.addEventListener('change', () => actions.setDrums(drumsInput.checked));
   playButton.addEventListener('click', () => actions.togglePlay());
   bpmInput.addEventListener('input', () => actions.setBpm(Number(bpmInput.value)));

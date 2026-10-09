@@ -23,7 +23,14 @@ const MIN_DRUM_VELOCITY = 0.05;
  * @param {object} [options.timer]  injectable pour les tests
  * @returns {object} voir les méthodes ci-dessous
  */
-export function createLoopPlayer({ context, output, bpm = DEFAULT_BPM, patternId = null, playPiece, timer = globalThis }) {
+export function createLoopPlayer({
+  context,
+  output,
+  bpm = DEFAULT_BPM,
+  patternId = null,
+  playPiece,
+  timer = globalThis,
+}) {
   const loopBus = context.createGain();
   loopBus.gain.value = DEFAULT_LOOP_VOLUME;
   loopBus.connect(output);
@@ -49,9 +56,17 @@ export function createLoopPlayer({ context, output, bpm = DEFAULT_BPM, patternId
     }
     if (!pattern) return;
     const info = describeStep(pattern, step);
-    if (info.barStart) playPad(context, session.loop, info.chord, time, duration * STEPS_PER_BAR, pattern.tone);
+    if (info.barStart)
+      playPad(context, session.loop, info.chord, time, duration * STEPS_PER_BAR, pattern.tone);
     if (info.bassNote !== null) {
-      playBass(context, session.loop, info.bassNote, time, duration * bassLength(step) * BASS_GATE, pattern.tone);
+      playBass(
+        context,
+        session.loop,
+        info.bassNote,
+        time,
+        duration * bassLength(step) * BASS_GATE,
+        pattern.tone,
+      );
     }
     playShaker(context, session.loop, info.shaker, time);
     // La batterie passe par le moteur, hors du bus des boucles : le volume
@@ -68,7 +83,8 @@ export function createLoopPlayer({ context, output, bpm = DEFAULT_BPM, patternId
   function bassLength(step) {
     const stepInBar = step % STEPS_PER_BAR;
     let length = 1;
-    while (stepInBar + length < STEPS_PER_BAR && pattern.bass[stepInBar + length] === null) length += 1;
+    while (stepInBar + length < STEPS_PER_BAR && pattern.bass[stepInBar + length] === null)
+      length += 1;
     return length;
   }
 
