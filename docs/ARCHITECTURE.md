@@ -18,12 +18,14 @@ Ces choix peuvent évoluer ; toute modification est notée ici avec sa raison.
 tambour/
 ├── index.html            Page unique
 ├── public/
-│   └── sounds/<kit>/     Échantillons audio (.ogg + .mp3 de secours)
+│   └── sounds/<kit>/     Échantillons audio (.ogg + .mp3 de secours) et manifest.json
 ├── src/
 │   ├── main.js           Point d'entrée : assemble les modules
 │   ├── music.js          Boucles, choix du kit et enregistrement autour du moteur
 │   ├── audio/
-│   │   ├── engine.js     Contexte audio, chargement et lecture des sons
+│   │   ├── engine.js     Contexte audio et lecture : engine.play(soundId, velocity, time), time sur engine.now()
+│   │   ├── sample-loader.js Charge les sons d'un kit d'après public/sounds/<kit>/manifest.json
+│   │   ├── drum-synth.js Sons de synthèse de secours si un échantillon manque
 │   │   ├── kits.js       Description des kits (pièces, fichiers, touches)
 │   │   ├── kit-selector.js Charge le kit choisi ; le dernier choix l'emporte
 │   │   ├── clock.js      Horloge du tempo, planifie chaque pas en temps audio avec une fenêtre d'avance
@@ -44,6 +46,8 @@ tambour/
 │   └── styles/
 │       ├── tokens.css    Couleurs, typographies, espacements
 │       └── main.css
+├── vite.config.js        Configuration de Vite
+├── eslint.config.js      Règles ESLint
 ├── .prettierignore       Exclut docs/ et *.md du formatage automatique
 ├── tests/                Tests unitaires (node --test tests/)
 └── docs/
@@ -64,7 +68,7 @@ tambour/
 ## Flux d'une frappe
 
 ```
-Touche / doigt ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(pieceId, velocity)
+Touche / doigt ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(soundId, velocity, time)
                                                              ├──► ui/hit-animation.animateHit(pieceId, velocity, point)
                                                              └──► music.captureHit(hit)   (enregistrement)
 ```
