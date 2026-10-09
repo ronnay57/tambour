@@ -3,7 +3,7 @@
 Même format que les autres kits : 3 vélocités × 2 variantes, .ogg + .mp3,
 dans public/sounds/electronic/.
 
-Usage : python3 tools/sound-synth/electronic.py [--out public/sounds/electronic]
+Usage : python3 tools/sounds/electronic.py [--out public/sounds/electronic]
 """
 
 import argparse

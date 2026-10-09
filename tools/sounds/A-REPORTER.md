@@ -12,8 +12,7 @@ Ces fichiers appartiennent au fil « Plan du projet » ; voici les ajouts propos
 │   ├── electronic/       Batterie électronique façon 808/909 (synthèse)
 │   └── synth/            Batterie synthétique (secours, mêmes pièces qu'acoustic)
 ├── tools/
-│   ├── sound-import/     Import et conversion des échantillons VCSL (Python + ffmpeg)
-│   └── sound-synth/      Générateur des sons par synthèse (Python + ffmpeg)
+│   └── sounds/           Import des échantillons VCSL et synthèse des kits (Python + ffmpeg)
 ```
 
 Chaque kit a un `manifest.json` (pièces, couches de vélocité, fichiers) que `kits.js` peut lire directement.

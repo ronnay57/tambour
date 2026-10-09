@@ -1,6 +1,6 @@
 # Crédits du kit « Batterie acoustique »
 
-Tous les sons de ce dossier proviennent de la [Versilian Community Sample Library (VCSL)](https://github.com/sgossner/VCSL), placée dans le domaine public ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.fr)). Ils ont été coupés, normalisés et convertis par `tools/sound-import/import_vcsl.py`.
+Tous les sons de ce dossier proviennent de la [Versilian Community Sample Library (VCSL)](https://github.com/sgossner/VCSL), placée dans le domaine public ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.fr)). Ils ont été coupés, normalisés et convertis par `tools/sounds/import_vcsl.py`.
 
 | Fichier | Échantillon VCSL d'origine | Traitement |
 | --- | --- | --- |

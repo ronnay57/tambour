@@ -3,18 +3,19 @@
 Chaque pièce est produite en 3 vélocités × 2 variantes, puis encodée en
 .ogg (Vorbis) et .mp3 de secours dans public/sounds/synth/.
 
-Usage : python3 tools/sound-synth/generate.py [--out public/sounds/synth]
+Usage : python3 tools/sounds/generate.py [--out public/sounds/synth]
 Dépendances : numpy, ffmpeg (avec libvorbis et libmp3lame).
 """
 
 import argparse
-import json
 import subprocess
 import tempfile
 import wave
 from pathlib import Path
 
 import numpy as np
+
+import manifest_json
 
 SAMPLE_RATE = 44100
 VELOCITIES = {"v1": 0.45, "v2": 0.72, "v3": 1.0}
@@ -326,7 +327,7 @@ def build_kit(kit_id, kit_name, pieces, out_dir, wav_dir=None):
             })
             print(f"{kit_id}/{piece_id}: {len(rendered)} sons")
 
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    (out_dir / "manifest.json").write_text(manifest_json.dumps(manifest))
 
 
 def main():

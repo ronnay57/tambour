@@ -12,26 +12,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "bongo-high-v1-1",
-            "bongo-high-v1-2"
-          ]
+          "files": ["bongo-high-v1-1", "bongo-high-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "bongo-high-v2-1",
-            "bongo-high-v2-2"
-          ]
+          "files": ["bongo-high-v2-1", "bongo-high-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "bongo-high-v3-1",
-            "bongo-high-v3-2"
-          ]
+          "files": ["bongo-high-v3-1", "bongo-high-v3-2"]
         }
       ]
     },
@@ -43,26 +34,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "bongo-low-v1-1",
-            "bongo-low-v1-2"
-          ]
+          "files": ["bongo-low-v1-1", "bongo-low-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "bongo-low-v2-1",
-            "bongo-low-v2-2"
-          ]
+          "files": ["bongo-low-v2-1", "bongo-low-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "bongo-low-v3-1",
-            "bongo-low-v3-2"
-          ]
+          "files": ["bongo-low-v3-1", "bongo-low-v3-2"]
         }
       ]
     },
@@ -74,26 +56,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "conga-open-v1-1",
-            "conga-open-v1-2"
-          ]
+          "files": ["conga-open-v1-1", "conga-open-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "conga-open-v2-1",
-            "conga-open-v2-2"
-          ]
+          "files": ["conga-open-v2-1", "conga-open-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "conga-open-v3-1",
-            "conga-open-v3-2"
-          ]
+          "files": ["conga-open-v3-1", "conga-open-v3-2"]
         }
       ]
     },
@@ -105,26 +78,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "conga-muted-v1-1",
-            "conga-muted-v1-2"
-          ]
+          "files": ["conga-muted-v1-1", "conga-muted-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "conga-muted-v2-1",
-            "conga-muted-v2-2"
-          ]
+          "files": ["conga-muted-v2-1", "conga-muted-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "conga-muted-v3-1",
-            "conga-muted-v3-2"
-          ]
+          "files": ["conga-muted-v3-1", "conga-muted-v3-2"]
         }
       ]
     },
@@ -136,26 +100,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "tumba-v1-1",
-            "tumba-v1-2"
-          ]
+          "files": ["tumba-v1-1", "tumba-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "tumba-v2-1",
-            "tumba-v2-2"
-          ]
+          "files": ["tumba-v2-1", "tumba-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "tumba-v3-1",
-            "tumba-v3-2"
-          ]
+          "files": ["tumba-v3-1", "tumba-v3-2"]
         }
       ]
     },
@@ -167,26 +122,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "darbuka-doum-v1-1",
-            "darbuka-doum-v1-2"
-          ]
+          "files": ["darbuka-doum-v1-1", "darbuka-doum-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "darbuka-doum-v2-1",
-            "darbuka-doum-v2-2"
-          ]
+          "files": ["darbuka-doum-v2-1", "darbuka-doum-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "darbuka-doum-v3-1",
-            "darbuka-doum-v3-2"
-          ]
+          "files": ["darbuka-doum-v3-1", "darbuka-doum-v3-2"]
         }
       ]
     },
@@ -198,26 +144,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "darbuka-tek-v1-1",
-            "darbuka-tek-v1-2"
-          ]
+          "files": ["darbuka-tek-v1-1", "darbuka-tek-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "darbuka-tek-v2-1",
-            "darbuka-tek-v2-2"
-          ]
+          "files": ["darbuka-tek-v2-1", "darbuka-tek-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "darbuka-tek-v3-1",
-            "darbuka-tek-v3-2"
-          ]
+          "files": ["darbuka-tek-v3-1", "darbuka-tek-v3-2"]
         }
       ]
     },
@@ -229,26 +166,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "darbuka-ka-v1-1",
-            "darbuka-ka-v1-2"
-          ]
+          "files": ["darbuka-ka-v1-1", "darbuka-ka-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "darbuka-ka-v2-1",
-            "darbuka-ka-v2-2"
-          ]
+          "files": ["darbuka-ka-v2-1", "darbuka-ka-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "darbuka-ka-v3-1",
-            "darbuka-ka-v3-2"
-          ]
+          "files": ["darbuka-ka-v3-1", "darbuka-ka-v3-2"]
         }
       ]
     },
@@ -260,26 +188,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "cajon-bass-v1-1",
-            "cajon-bass-v1-2"
-          ]
+          "files": ["cajon-bass-v1-1", "cajon-bass-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "cajon-bass-v2-1",
-            "cajon-bass-v2-2"
-          ]
+          "files": ["cajon-bass-v2-1", "cajon-bass-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "cajon-bass-v3-1",
-            "cajon-bass-v3-2"
-          ]
+          "files": ["cajon-bass-v3-1", "cajon-bass-v3-2"]
         }
       ]
     },
@@ -291,26 +210,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "cajon-slap-v1-1",
-            "cajon-slap-v1-2"
-          ]
+          "files": ["cajon-slap-v1-1", "cajon-slap-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "cajon-slap-v2-1",
-            "cajon-slap-v2-2"
-          ]
+          "files": ["cajon-slap-v2-1", "cajon-slap-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "cajon-slap-v3-1",
-            "cajon-slap-v3-2"
-          ]
+          "files": ["cajon-slap-v3-1", "cajon-slap-v3-2"]
         }
       ]
     },
@@ -322,26 +232,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "frame-low-v1-1",
-            "frame-low-v1-2"
-          ]
+          "files": ["frame-low-v1-1", "frame-low-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "frame-low-v2-1",
-            "frame-low-v2-2"
-          ]
+          "files": ["frame-low-v2-1", "frame-low-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "frame-low-v3-1",
-            "frame-low-v3-2"
-          ]
+          "files": ["frame-low-v3-1", "frame-low-v3-2"]
         }
       ]
     },
@@ -353,26 +254,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "frame-high-v1-1",
-            "frame-high-v1-2"
-          ]
+          "files": ["frame-high-v1-1", "frame-high-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "frame-high-v2-1",
-            "frame-high-v2-2"
-          ]
+          "files": ["frame-high-v2-1", "frame-high-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "frame-high-v3-1",
-            "frame-high-v3-2"
-          ]
+          "files": ["frame-high-v3-1", "frame-high-v3-2"]
         }
       ]
     },
@@ -384,26 +276,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "clap-v1-1",
-            "clap-v1-2"
-          ]
+          "files": ["clap-v1-1", "clap-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "clap-v2-1",
-            "clap-v2-2"
-          ]
+          "files": ["clap-v2-1", "clap-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "clap-v3-1",
-            "clap-v3-2"
-          ]
+          "files": ["clap-v3-1", "clap-v3-2"]
         }
       ]
     }

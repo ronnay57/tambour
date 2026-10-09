@@ -90,14 +90,14 @@ Kits enregistrés (télécharge environ 2 Go d'échantillons VCSL) :
 ```sh
 git clone --depth 1 --filter=blob:none --sparse https://github.com/sgossner/VCSL.git /tmp/VCSL
 git -C /tmp/VCSL sparse-checkout set "Membranophones/Struck Membranophones" "Idiophones/Struck Idiophones"
-python3 tools/sound-import/import_vcsl.py --vcsl /tmp/VCSL
+python3 tools/sounds/import_vcsl.py --vcsl /tmp/VCSL
 ```
 
 Kits synthétiques :
 
 ```sh
-python3 tools/sound-synth/generate.py     # synth/
-python3 tools/sound-synth/electronic.py   # electronic/
+python3 tools/sounds/generate.py     # synth/
+python3 tools/sounds/electronic.py   # electronic/
 ```
 
 Dépendances : Python 3 avec numpy, et ffmpeg compilé avec libvorbis et libmp3lame. Le choix des échantillons pour chaque pièce est une simple liste en haut de `import_vcsl.py`.

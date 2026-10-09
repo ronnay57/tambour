@@ -10,18 +10,19 @@ format .ogg + .mp3 de secours, stéréo 44,1 kHz.
 Usage :
     git clone --depth 1 --filter=blob:none --sparse https://github.com/sgossner/VCSL.git
     git -C VCSL sparse-checkout set "Membranophones/Struck Membranophones" "Idiophones/Struck Idiophones"
-    python3 tools/sound-import/import_vcsl.py --vcsl VCSL
+    python3 tools/sounds/import_vcsl.py --vcsl VCSL
 Dépendances : numpy, ffmpeg (avec libvorbis et libmp3lame).
 """
 
 import argparse
-import json
 import subprocess
 import tempfile
 import wave
 from pathlib import Path
 
 import numpy as np
+
+import manifest_json
 
 SAMPLE_RATE = 44100
 CHANNELS = 2
@@ -242,7 +243,7 @@ def build_kit(kit, vcsl, sounds_root, tmp):
             "velocities": [{"layer": layer, "max": LAYER_MAX[layer], "files": files[layer]} for layer in layers],
         })
         print(f"{kit['id']}/{piece_id}: {len(rendered)} sons")
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    (out_dir / "manifest.json").write_text(manifest_json.dumps(manifest))
     write_credits(out_dir, kit["name"], credits)
 
 
@@ -253,7 +254,7 @@ def write_credits(out_dir, kit_name, credits):
         "Tous les sons de ce dossier proviennent de la [Versilian Community Sample Library (VCSL)]"
         "(https://github.com/sgossner/VCSL), placée dans le domaine public "
         "([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.fr)). "
-        "Ils ont été coupés, normalisés et convertis par `tools/sound-import/import_vcsl.py`.",
+        "Ils ont été coupés, normalisés et convertis par `tools/sounds/import_vcsl.py`.",
         "",
         "| Fichier | Échantillon VCSL d'origine | Traitement |",
         "| --- | --- | --- |",

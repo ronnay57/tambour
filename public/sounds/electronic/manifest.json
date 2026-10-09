@@ -11,26 +11,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "kick-v1-1",
-            "kick-v1-2"
-          ]
+          "files": ["kick-v1-1", "kick-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "kick-v2-1",
-            "kick-v2-2"
-          ]
+          "files": ["kick-v2-1", "kick-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "kick-v3-1",
-            "kick-v3-2"
-          ]
+          "files": ["kick-v3-1", "kick-v3-2"]
         }
       ]
     },
@@ -42,26 +33,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "kick-boom-v1-1",
-            "kick-boom-v1-2"
-          ]
+          "files": ["kick-boom-v1-1", "kick-boom-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "kick-boom-v2-1",
-            "kick-boom-v2-2"
-          ]
+          "files": ["kick-boom-v2-1", "kick-boom-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "kick-boom-v3-1",
-            "kick-boom-v3-2"
-          ]
+          "files": ["kick-boom-v3-1", "kick-boom-v3-2"]
         }
       ]
     },
@@ -73,26 +55,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "snare-v1-1",
-            "snare-v1-2"
-          ]
+          "files": ["snare-v1-1", "snare-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "snare-v2-1",
-            "snare-v2-2"
-          ]
+          "files": ["snare-v2-1", "snare-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "snare-v3-1",
-            "snare-v3-2"
-          ]
+          "files": ["snare-v3-1", "snare-v3-2"]
         }
       ]
     },
@@ -104,26 +77,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "clap-v1-1",
-            "clap-v1-2"
-          ]
+          "files": ["clap-v1-1", "clap-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "clap-v2-1",
-            "clap-v2-2"
-          ]
+          "files": ["clap-v2-1", "clap-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "clap-v3-1",
-            "clap-v3-2"
-          ]
+          "files": ["clap-v3-1", "clap-v3-2"]
         }
       ]
     },
@@ -135,26 +99,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "snare-rimshot-v1-1",
-            "snare-rimshot-v1-2"
-          ]
+          "files": ["snare-rimshot-v1-1", "snare-rimshot-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "snare-rimshot-v2-1",
-            "snare-rimshot-v2-2"
-          ]
+          "files": ["snare-rimshot-v2-1", "snare-rimshot-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "snare-rimshot-v3-1",
-            "snare-rimshot-v3-2"
-          ]
+          "files": ["snare-rimshot-v3-1", "snare-rimshot-v3-2"]
         }
       ]
     },
@@ -166,26 +121,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "tom-high-v1-1",
-            "tom-high-v1-2"
-          ]
+          "files": ["tom-high-v1-1", "tom-high-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "tom-high-v2-1",
-            "tom-high-v2-2"
-          ]
+          "files": ["tom-high-v2-1", "tom-high-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "tom-high-v3-1",
-            "tom-high-v3-2"
-          ]
+          "files": ["tom-high-v3-1", "tom-high-v3-2"]
         }
       ]
     },
@@ -197,26 +143,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "tom-mid-v1-1",
-            "tom-mid-v1-2"
-          ]
+          "files": ["tom-mid-v1-1", "tom-mid-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "tom-mid-v2-1",
-            "tom-mid-v2-2"
-          ]
+          "files": ["tom-mid-v2-1", "tom-mid-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "tom-mid-v3-1",
-            "tom-mid-v3-2"
-          ]
+          "files": ["tom-mid-v3-1", "tom-mid-v3-2"]
         }
       ]
     },
@@ -228,26 +165,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "tom-floor-v1-1",
-            "tom-floor-v1-2"
-          ]
+          "files": ["tom-floor-v1-1", "tom-floor-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "tom-floor-v2-1",
-            "tom-floor-v2-2"
-          ]
+          "files": ["tom-floor-v2-1", "tom-floor-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "tom-floor-v3-1",
-            "tom-floor-v3-2"
-          ]
+          "files": ["tom-floor-v3-1", "tom-floor-v3-2"]
         }
       ]
     },
@@ -259,26 +187,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "hihat-closed-v1-1",
-            "hihat-closed-v1-2"
-          ]
+          "files": ["hihat-closed-v1-1", "hihat-closed-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "hihat-closed-v2-1",
-            "hihat-closed-v2-2"
-          ]
+          "files": ["hihat-closed-v2-1", "hihat-closed-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "hihat-closed-v3-1",
-            "hihat-closed-v3-2"
-          ]
+          "files": ["hihat-closed-v3-1", "hihat-closed-v3-2"]
         }
       ]
     },
@@ -290,26 +209,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "hihat-open-v1-1",
-            "hihat-open-v1-2"
-          ]
+          "files": ["hihat-open-v1-1", "hihat-open-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "hihat-open-v2-1",
-            "hihat-open-v2-2"
-          ]
+          "files": ["hihat-open-v2-1", "hihat-open-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "hihat-open-v3-1",
-            "hihat-open-v3-2"
-          ]
+          "files": ["hihat-open-v3-1", "hihat-open-v3-2"]
         }
       ]
     },
@@ -321,26 +231,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "crash-v1-1",
-            "crash-v1-2"
-          ]
+          "files": ["crash-v1-1", "crash-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "crash-v2-1",
-            "crash-v2-2"
-          ]
+          "files": ["crash-v2-1", "crash-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "crash-v3-1",
-            "crash-v3-2"
-          ]
+          "files": ["crash-v3-1", "crash-v3-2"]
         }
       ]
     },
@@ -352,26 +253,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "ride-v1-1",
-            "ride-v1-2"
-          ]
+          "files": ["ride-v1-1", "ride-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "ride-v2-1",
-            "ride-v2-2"
-          ]
+          "files": ["ride-v2-1", "ride-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "ride-v3-1",
-            "ride-v3-2"
-          ]
+          "files": ["ride-v3-1", "ride-v3-2"]
         }
       ]
     },
@@ -383,26 +275,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "cowbell-v1-1",
-            "cowbell-v1-2"
-          ]
+          "files": ["cowbell-v1-1", "cowbell-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "cowbell-v2-1",
-            "cowbell-v2-2"
-          ]
+          "files": ["cowbell-v2-1", "cowbell-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "cowbell-v3-1",
-            "cowbell-v3-2"
-          ]
+          "files": ["cowbell-v3-1", "cowbell-v3-2"]
         }
       ]
     },
@@ -414,26 +297,17 @@
         {
           "layer": "v1",
           "max": 0.45,
-          "files": [
-            "clave-v1-1",
-            "clave-v1-2"
-          ]
+          "files": ["clave-v1-1", "clave-v1-2"]
         },
         {
           "layer": "v2",
           "max": 0.72,
-          "files": [
-            "clave-v2-1",
-            "clave-v2-2"
-          ]
+          "files": ["clave-v2-1", "clave-v2-2"]
         },
         {
           "layer": "v3",
           "max": 1.0,
-          "files": [
-            "clave-v3-1",
-            "clave-v3-2"
-          ]
+          "files": ["clave-v3-1", "clave-v3-2"]
         }
       ]
     }
