@@ -17,8 +17,14 @@ Ces choix peuvent évoluer ; toute modification est notée ici avec sa raison.
 ```
 tambour/
 ├── index.html            Page unique
-├── public/
-│   └── sounds/<kit>/     Échantillons audio (.ogg + .mp3 de secours) et manifest.json
+├── public/sounds/
+│   ├── README.md         Liste des kits, des pièces et de leurs identifiants
+│   ├── acoustic/         Batterie acoustique (échantillons VCSL, CC0)
+│   ├── world/            Percussions du monde (échantillons VCSL, CC0)
+│   ├── electronic/       Batterie électronique façon 808/909 (synthèse)
+│   └── synth/            Batterie synthétique (secours, mêmes pièces qu'acoustic)
+├── tools/
+│   └── sounds/           Import des échantillons VCSL et synthèse des kits (Python + ffmpeg)
 ├── src/
 │   ├── main.js           Point d'entrée : assemble les modules
 │   ├── music.js          Boucles, choix du kit et enregistrement autour du moteur
@@ -56,6 +62,8 @@ tambour/
 │   └── e2e/              Tests navigateur et accessibilité (npm run test:e2e)
 └── docs/
 ```
+
+Chaque kit a un `manifest.json` (pièces, couches de vélocité, fichiers) lu par `audio/sample-loader.js`. Chaque fichier son est en `.ogg` avec un `.mp3` de secours.
 
 ## Page
 
