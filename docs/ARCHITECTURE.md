@@ -49,7 +49,7 @@ tambour/
 ├── vite.config.js        Configuration de Vite
 ├── eslint.config.js      Règles ESLint
 ├── .prettierignore       Exclut docs/ et *.md du formatage automatique
-├── tests/                Tests unitaires (node --test tests/)
+├── tests/                Tests unitaires (npm test)
 └── docs/
 ```
 
