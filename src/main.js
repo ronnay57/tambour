@@ -10,10 +10,13 @@ import { getKeyLabels, listenToKeyboard } from './input/keyboard.js';
 import { listenToPointer } from './input/pointer.js';
 import { setupMusic } from './music.js';
 import { animateHit, renderDrumKit } from './ui/drum-kit.js';
+import { initTheme } from './ui/theme.js';
 
 const kit = KITS[0];
 const kitElement = document.querySelector('#drum-kit');
 const hintElement = document.querySelector('#hint');
+
+initTheme(document.querySelector('#theme-toggle'));
 
 // BASE_URL suit la configuration Vite, pour que les sons se trouvent aussi sous /tambour/.
 const engine = createEngine({ soundsUrl: `${import.meta.env.BASE_URL}sounds/` });
