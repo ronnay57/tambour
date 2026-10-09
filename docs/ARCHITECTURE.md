@@ -1,0 +1,52 @@
+# Architecture
+
+## Choix techniques
+
+| Sujet | Choix | Pourquoi |
+| --- | --- | --- |
+| Langage | JavaScript moderne (modules ES), JSDoc pour les types | Simple à lire, pas d'étape de compilation lourde |
+| Outil de build | [Vite](https://vitejs.dev) | Démarrage instantané, build optimisé, déploiement statique facile |
+| Audio | Web Audio API | Latence faible, lecture simultanée de nombreux sons, effets |
+| Interface | HTML + CSS (variables CSS), sans framework | Le site est une seule page interactive ; un framework n'apporterait pas grand-chose |
+| Hébergement | GitHub Pages | Gratuit, lié au dépôt |
+
+Ces choix peuvent évoluer ; toute modification est notée ici avec sa raison.
+
+## Organisation des dossiers
+
+```
+tambour/
+├── index.html            Page unique
+├── public/
+│   └── sounds/<kit>/     Échantillons audio (.ogg + .mp3 de secours)
+├── src/
+│   ├── main.js           Point d'entrée : assemble les modules
+│   ├── audio/
+│   │   ├── engine.js     Contexte audio, chargement et lecture des sons
+│   │   ├── kits.js       Description des kits (pièces, fichiers, touches)
+│   │   └── loops.js      Boucles d'accompagnement et métronome
+│   ├── input/
+│   │   ├── keyboard.js   Touches clavier vers pièces
+│   │   └── pointer.js    Souris et toucher (multi-doigts)
+│   ├── ui/
+│   │   ├── drum-kit.js   Affichage du kit et animations de frappe
+│   │   └── controls.js   Tempo, choix du kit, volume
+│   └── styles/
+│       ├── tokens.css    Couleurs, typographies, espacements
+│       └── main.css
+└── docs/
+```
+
+## Principes
+
+1. **L'audio ne dépend pas de l'interface.** `audio/` ne touche jamais au DOM. L'interface appelle le moteur, jamais l'inverse.
+2. **Les entrées émettent des événements.** Clavier et pointeur produisent un même événement `hit` (`{ pieceId, velocity }`), que `main.js` relie au moteur audio et à l'animation.
+3. **Les kits sont des données.** Ajouter un kit revient à ajouter un dossier de sons et une entrée dans `kits.js`, sans toucher au reste du code.
+4. **Le contexte audio démarre sur une action de l'utilisateur**, comme l'exigent les navigateurs (premier clic ou première touche).
+
+## Flux d'une frappe
+
+```
+Touche / doigt ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(pieceId, velocity)
+                                                             └──► ui/drum-kit.animate(pieceId)
+```
