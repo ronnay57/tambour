@@ -294,17 +294,14 @@ def encode(wav_path, out_base):
     subprocess.run(common + ["-c:a", "libmp3lame", "-q:a", MP3_VBR_QUALITY, f"{out_base}.mp3"], check=True)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--out", default="public/sounds/synth")
-    parser.add_argument("--wav", help="Dossier où garder aussi les .wav (pour vérifier)")
-    args = parser.parse_args()
-    out_dir = Path(args.out)
+def build_kit(kit_id, kit_name, pieces, out_dir, wav_dir=None):
+    """Rend chaque pièce en 3 vélocités × 2 variantes, encode et écrit le manifest du kit."""
+    out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    manifest = {"id": "synth", "name": "Batterie synthétique", "sampleRate": SAMPLE_RATE, "pieces": []}
+    manifest = {"id": kit_id, "name": kit_name, "sampleRate": SAMPLE_RATE, "pieces": []}
 
     with tempfile.TemporaryDirectory() as tmp:
-        for seed_base, (piece_id, piece) in enumerate(PIECES.items()):
+        for seed_base, (piece_id, piece) in enumerate(pieces.items()):
             rendered = {}
             for layer, vel in VELOCITIES.items():
                 for variant in range(1, VARIANT_COUNT + 1):
@@ -316,7 +313,7 @@ def main():
             files = {layer: [] for layer in VELOCITIES}
             for (layer, variant), sig in rendered.items():
                 name = f"{piece_id}-{layer}-{variant}"
-                wav_path = Path(args.wav or tmp) / f"{name}.wav"
+                wav_path = Path(wav_dir or tmp) / f"{name}.wav"
                 wav_path.parent.mkdir(parents=True, exist_ok=True)
                 write_wav(wav_path, finish(sig * PEAK_TARGET / peak))
                 encode(wav_path, out_dir / name)
@@ -327,9 +324,17 @@ def main():
                 "gain": piece["gain"],
                 "velocities": [{"layer": layer, "max": VELOCITIES[layer], "files": files[layer]} for layer in VELOCITIES],
             })
-            print(f"{piece_id}: {len(rendered)} sons")
+            print(f"{kit_id}/{piece_id}: {len(rendered)} sons")
 
     (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", default="public/sounds/synth")
+    parser.add_argument("--wav", help="Dossier où garder aussi les .wav (pour vérifier)")
+    args = parser.parse_args()
+    build_kit("synth", "Batterie synthétique", PIECES, args.out, args.wav)
 
 
 if __name__ == "__main__":

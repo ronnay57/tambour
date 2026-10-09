@@ -1,11 +1,12 @@
 # Sons du tambour
 
-Trois kits, chacun dans son dossier avec un `manifest.json` (pièces, couches de vélocité, fichiers) et un `CREDITS.md` (source et licence de chaque son).
+Quatre kits, chacun dans son dossier avec un `manifest.json` (pièces, couches de vélocité, fichiers) et un `CREDITS.md` (source et licence de chaque son).
 
 | Kit | Dossier | Origine | Licence |
 | --- | --- | --- | --- |
 | Batterie acoustique | `acoustic/` | Enregistrements de la [VCSL](https://github.com/sgossner/VCSL) | CC0 1.0 |
 | Percussions du monde | `world/` | Enregistrements de la [VCSL](https://github.com/sgossner/VCSL) | CC0 1.0 |
+| Batterie électronique | `electronic/` | Créés par synthèse, façon boîtes à rythmes 808 et 909 | CC0 1.0 |
 | Batterie synthétique | `synth/` | Créés par synthèse pour ce projet, kit de secours | CC0 1.0 |
 
 `acoustic` et `synth` ont exactement les mêmes pièces et les mêmes identifiants : on peut passer de l'un à l'autre sans rien changer d'autre.
@@ -50,6 +51,25 @@ VCSL n'a ni vraie ride ni vrai splash : ce sont des cymbales suspendues d'orches
 | Tambour sur cadre | `frame-high` | Petit cadre |
 | Mains | `clap` | Frappe de mains |
 
+## Batterie électronique (`electronic/`)
+
+Les pièces communes avec la batterie acoustique gardent le même identifiant, pour que les mêmes touches fonctionnent d'un kit à l'autre.
+
+| Pièce | Identifiant | Son |
+| --- | --- | --- |
+| Grosse caisse | `kick` | Courte et percutante (909) |
+| Grosse caisse longue | `kick-boom` | Sinus grave et long (808), sert aussi de basse |
+| Caisse claire | `snare` | 808 |
+| Clap | `clap` | Frappe de mains électronique |
+| Rimshot | `snare-rimshot` | Clic sec |
+| Toms | `tom-high`, `tom-mid`, `tom-floor` | Sinus qui descendent en hauteur |
+| Charleston | `hihat-closed`, `hihat-open` | Six oscillateurs métalliques filtrés |
+| Cymbales | `crash`, `ride` | Mêmes oscillateurs, plus longs |
+| Cloche | `cowbell` | Cowbell 808 |
+| Claves | `clave` | Clic aigu en bois |
+
+Pas de `hihat-pedal`, `splash`, `ride-bell` ni `snare-sidestick` dans ce kit : le moteur doit ignorer une pièce absente du kit choisi.
+
 ## Fichiers
 
 - Chaque pièce existe en **3 vélocités** (`v1` douce, `v2` moyenne, `v3` forte) et en 1 ou 2 **variantes** par vélocité, pour éviter l'effet « mitraillette » : `kick-v3-2.ogg` = grosse caisse, frappe forte, variante 2.
@@ -73,10 +93,11 @@ git -C /tmp/VCSL sparse-checkout set "Membranophones/Struck Membranophones" "Idi
 python3 tools/sound-import/import_vcsl.py --vcsl /tmp/VCSL
 ```
 
-Kit synthétique :
+Kits synthétiques :
 
 ```sh
-python3 tools/sound-synth/generate.py
+python3 tools/sound-synth/generate.py     # synth/
+python3 tools/sound-synth/electronic.py   # electronic/
 ```
 
 Dépendances : Python 3 avec numpy, et ffmpeg compilé avec libvorbis et libmp3lame. Le choix des échantillons pour chaque pièce est une simple liste en haut de `import_vcsl.py`.

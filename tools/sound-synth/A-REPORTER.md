@@ -9,6 +9,7 @@ Ces fichiers appartiennent au fil « Plan du projet » ; voici les ajouts propos
 │   ├── README.md         Liste des kits, des pièces et de leurs identifiants
 │   ├── acoustic/         Batterie acoustique (échantillons VCSL, CC0)
 │   ├── world/            Percussions du monde (échantillons VCSL, CC0)
+│   ├── electronic/       Batterie électronique façon 808/909 (synthèse)
 │   └── synth/            Batterie synthétique (secours, mêmes pièces qu'acoustic)
 ├── tools/
 │   ├── sound-import/     Import et conversion des échantillons VCSL (Python + ffmpeg)
@@ -21,4 +22,5 @@ Chaque kit a un `manifest.json` (pièces, couches de vélocité, fichiers) que `
 
 - Kit « Batterie acoustique » : 15 pièces enregistrées (grosse caisse, caisse claire, rimshot, cross-stick, 3 toms, charleston fermé, ouvert et au pied, crash, splash, ride, cloche de ride, cowbell) en 3 vélocités, tirées de la bibliothèque libre VCSL.
 - Kit « Percussions du monde » : bongos, congas, tumba, darbouka, cajón, tambours sur cadre et frappe de mains.
+- Kit « Batterie électronique » façon 808/909, créé par synthèse.
 - Kit « Batterie synthétique » de secours, créé par synthèse.
