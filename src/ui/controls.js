@@ -1,6 +1,7 @@
 // Commandes de jeu : kit, boucle, tempo, métronome, enregistrement.
 // Ce module ne fait que construire et mettre à jour le DOM ; les actions
-// sont fournies par l'appelant. Le style vient des classes `music-controls*`.
+// sont fournies par l'appelant. Les éléments vont dans la zone `#transport`
+// préparée par l'interface, qui fournit les classes `.control` et `.btn*`.
 
 const BEATS_PER_BAR = 4;
 
@@ -29,7 +30,7 @@ function createElement(tag, attributes = {}, children = []) {
 }
 
 function createGroup(label, children) {
-  return createElement('div', { class: 'music-controls__group', role: 'group', 'aria-label': label }, children);
+  return createElement('div', { class: 'control', role: 'group', 'aria-label': label }, children);
 }
 
 function createOption(value, label) {
@@ -38,7 +39,7 @@ function createOption(value, label) {
 
 /**
  * Construit les commandes dans `root`.
- * @param {HTMLElement} root
+ * @param {HTMLElement} root  la zone `#transport`
  * @param {object} options
  * @param {{ id: string, label: string }[]} options.kits
  * @param {{ id: string, label: string }[]} options.patterns
@@ -63,7 +64,7 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
     ...patterns.map((pattern) => createOption(pattern.id, pattern.label)),
   ]);
   const drumsInput = createElement('input', { id: 'drums-input', type: 'checkbox' });
-  const playButton = createElement('button', { type: 'button', class: 'music-controls__play' });
+  const playButton = createElement('button', { type: 'button', class: 'btn btn--primary' });
   const bpmInput = createElement('input', {
     id: 'bpm-input',
     type: 'range',
@@ -82,10 +83,10 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
     step: '0.05',
     value: String(loopVolume),
   });
-  const recordButton = createElement('button', { type: 'button', class: 'music-controls__record' });
-  const playbackButton = createElement('button', { type: 'button', class: 'music-controls__playback' });
+  const recordButton = createElement('button', { type: 'button', class: 'btn btn--record' });
+  const playbackButton = createElement('button', { type: 'button', class: 'btn' });
 
-  const container = createElement('section', { class: 'music-controls', 'aria-label': 'Accompagnement et enregistrement' }, [
+  root.append(
     createGroup('Kit', [createElement('label', { for: 'kit-select', text: 'Kit' }), kitSelect]),
     createGroup('Boucle', [createElement('label', { for: 'pattern-select', text: 'Boucle' }), patternSelect,
       createElement('label', { class: 'music-controls__toggle' }, [drumsInput, ' Batterie']),
@@ -100,8 +101,7 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
     ]),
     createGroup('Volume des boucles', [createElement('label', { for: 'loop-volume', text: 'Volume boucles' }), volumeInput]),
     createGroup('Enregistrement', [recordButton, playbackButton]),
-  ]);
-  root.append(container);
+  );
 
   kitSelect.addEventListener('change', () => actions.selectKit(kitSelect.value));
   patternSelect.addEventListener('change', () => actions.selectPattern(patternSelect.value || null));
@@ -130,7 +130,7 @@ export function renderControls(root, { kits, patterns, bpmRange, loopVolume }, a
       recordButton.disabled = state.playingBack;
       playbackButton.textContent = state.playingBack ? 'Arrêter la réécoute' : 'Réécouter';
       playbackButton.disabled = !state.hasRecording || state.recording;
-      container.classList.toggle('is-recording', state.recording);
+      root.classList.toggle('is-recording', state.recording);
     },
     showBeat(beat) {
       beatDots.forEach((dot, index) => {
