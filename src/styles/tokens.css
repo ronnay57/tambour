@@ -1,0 +1,25 @@
+/* Valeurs de base de l'interface. Provisoires : la palette définitive vient avec l'étape 3. */
+:root {
+  --color-stage: #1d1712;
+  --color-text: #f4ead8;
+  --color-text-muted: #b8a88f;
+  --color-skin: #efe3c8;
+  --color-skin-edge: #b08a57;
+  --color-metal: #d9b45a;
+  --color-metal-edge: #8a6a22;
+  --color-kick: #3a2a1f;
+  --color-kick-skin: #e4d6b8;
+  --color-ripple: rgb(255 255 255 / 0.55);
+  --color-ink: #2a2016;
+
+  --font-title: 'Georgia', serif;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 32px;
+
+  --pad-min-size: 72px;
+  --kit-max-width: 720px;
+}
