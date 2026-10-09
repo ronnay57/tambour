@@ -11,6 +11,15 @@ const ACCENT_VELOCITY = 1;
  * @typedef {{ pieceId: string, velocity: number, x?: number, y?: number }} Hit
  */
 
+/** Espace active un bouton qui a le focus : on le lui laisse, sauf sur une pièce du kit. */
+function isFocusedControl(target) {
+  return (
+    target instanceof HTMLElement &&
+    ['BUTTON', 'A', 'SUMMARY'].includes(target.tagName) &&
+    !target.closest('[data-piece-id]')
+  );
+}
+
 function isTypingTarget(target) {
   return (
     target instanceof HTMLElement &&
@@ -35,7 +44,8 @@ export function listenToKeyboard(kit, onHit, target = window) {
     if (isTypingTarget(event.target)) return;
     const pieceId = pieceByCode.get(event.code);
     if (!pieceId) return;
-    // Empêche Espace de faire défiler la page ou d'activer le bouton qui a le focus.
+    if (event.code === 'Space' && isFocusedControl(event.target)) return;
+    // Empêche Espace de faire défiler la page.
     event.preventDefault();
     onHit({ pieceId, velocity: event.shiftKey ? ACCENT_VELOCITY : KEY_VELOCITY });
   }
