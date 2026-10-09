@@ -7,8 +7,11 @@
 
 import { loadKitSamples } from './sample-loader.js';
 import { renderSynthSound } from './drum-synth.js';
+import { createReverb } from './reverb.js';
 
 const DEFAULT_VOLUME = 0.8;
+/** Réverbération discrète par défaut : elle doit unifier le kit sans le noyer. */
+const DEFAULT_REVERB_MIX = 0.12;
 /** Au-delà, la frappe la plus ancienne d'un son est coupée, pour ne pas saturer sur une cymbale. */
 const MAX_VOICES_PER_SOUND = 6;
 /** Fondu appliqué quand on coupe une voix : inaudible, mais évite un clic. */
@@ -37,6 +40,7 @@ const VOLUME_SMOOTHING_SECONDS = 0.01;
  * @property {() => number} now Heure de l'horloge audio, en secondes.
  * @property {() => string[]} listSounds Sons jouables, y compris ceux sans pièce affichée.
  * @property {(volume: number) => void} setVolume Règle le volume général (0 à 1).
+ * @property {(mix: number) => void} setReverb Règle la part de réverbération du kit (0 à 1, 0 = sans).
  */
 
 /** Son de synthèse : une seule couche, la vélocité ne joue que sur le volume. */
@@ -73,6 +77,11 @@ export function createEngine({ soundsUrl = 'sounds/' } = {}) {
   const output = context.createGain();
   output.gain.value = DEFAULT_VOLUME;
   output.connect(context.destination);
+  // Les frappes passent par un bus du kit, envoyé en direct et vers la réverbération.
+  const kitBus = context.createGain();
+  kitBus.connect(output);
+  const reverb = createReverb(context, output, DEFAULT_REVERB_MIX);
+  kitBus.connect(reverb.input);
 
   /** @type {Map<string, Sound>} */
   let sounds = new Map();
@@ -87,7 +96,7 @@ export function createEngine({ soundsUrl = 'sounds/' } = {}) {
     // iOS ne libère vraiment l'audio qu'après un son joué dans le geste lui-même.
     const silence = context.createBufferSource();
     silence.buffer = context.createBuffer(1, 1, context.sampleRate);
-    silence.connect(output);
+    silence.connect(kitBus);
     silence.start();
     return context.state === 'running' ? Promise.resolve() : context.resume();
   }
@@ -133,7 +142,7 @@ export function createEngine({ soundsUrl = 'sounds/' } = {}) {
     source.playbackRate.value = 1 + (Math.random() * 2 - 1) * PITCH_VARIATION;
     const gain = context.createGain();
     gain.gain.value = computeGain(sound, layerIndex, clamped);
-    source.connect(gain).connect(output);
+    source.connect(gain).connect(kitBus);
     source.start(startTime);
 
     const voice = { source, gain };
@@ -157,6 +166,7 @@ export function createEngine({ soundsUrl = 'sounds/' } = {}) {
     stop,
     now: () => context.currentTime,
     listSounds: () => [...sounds.keys()],
+    setReverb: reverb.setMix,
     setVolume: (volume) =>
       output.gain.setTargetAtTime(volume, context.currentTime, VOLUME_SMOOTHING_SECONDS),
   };
