@@ -10,6 +10,14 @@ test.beforeEach(async ({ page }) => {
     const { engine } = window.tambour;
     const play = engine.play.bind(engine);
     window.playedSounds = [];
+    window.animatedPieces = new Set();
+    // L'animation de frappe est trop brève pour être observée à coup sûr : on note qui s'anime.
+    const animate = Element.prototype.animate;
+    Element.prototype.animate = function (...args) {
+      const piece = this.closest('[data-piece-id]');
+      if (piece) window.animatedPieces.add(piece.dataset.pieceId);
+      return animate.apply(this, args);
+    };
     engine.play = (soundId, ...rest) => {
       window.playedSounds.push(soundId);
       return play(soundId, ...rest);
@@ -18,8 +26,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 const playedSounds = (page) => page.evaluate(() => window.playedSounds);
-const runningAnimations = (locator) =>
-  locator.evaluate((element) => element.getAnimations({ subtree: true }).length);
+const animatedPieces = (page) => page.evaluate(() => [...window.animatedPieces]);
 
 test('affiche une zone de frappe par pièce du kit', async ({ page }) => {
   const count = await page.evaluate(() => window.tambour.kit.pieces.length);
@@ -30,7 +37,7 @@ test('une frappe sur une pièce débloque le son, la joue et l’anime', async (
   const snare = page.locator('#drum-kit [data-piece-id="snare"]');
   await snare.click();
   await expect.poll(() => playedSounds(page)).toContain('snare');
-  expect(await runningAnimations(snare)).toBeGreaterThan(0);
+  await expect.poll(() => animatedPieces(page)).toContain('snare');
   await expect(page.locator('#hint')).toBeHidden();
   await expect.poll(() => page.evaluate(() => window.tambour.engine.context.state)).toBe('running');
 });
