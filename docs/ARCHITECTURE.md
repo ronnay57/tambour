@@ -49,7 +49,9 @@ tambour/
 ├── vite.config.js        Configuration de Vite
 ├── eslint.config.js      Règles ESLint
 ├── .prettierignore       Exclut docs/ et *.md du formatage automatique
+├── playwright.config.js  Configuration des tests navigateur
 ├── tests/                Tests unitaires (npm test)
+│   └── e2e/              Tests navigateur et accessibilité (npm run test:e2e)
 └── docs/
 ```
 
