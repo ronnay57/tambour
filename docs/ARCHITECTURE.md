@@ -25,6 +25,7 @@ tambour/
 │   ├── audio/
 │   │   ├── engine.js     Contexte audio et lecture : engine.play(soundId, velocity, time), time sur engine.now()
 │   │   ├── sample-loader.js Charge les sons d'un kit d'après public/sounds/<kit>/manifest.json
+│   │   ├── reverb.js     Réverbération de pièce calculée, réglée par engine.setReverb
 │   │   ├── drum-synth.js Sons de synthèse de secours si un échantillon manque
 │   │   ├── kits.js       Description des kits (pièces, fichiers, touches)
 │   │   ├── kit-selector.js Charge le kit choisi ; le dernier choix l'emporte
@@ -35,7 +36,8 @@ tambour/
 │   │   └── recorder.js   Enregistrement des frappes datées et réécoute
 │   ├── input/
 │   │   ├── keyboard.js   Touches clavier vers pièces
-│   │   └── pointer.js    Souris et toucher (multi-doigts)
+│   │   ├── pointer.js    Souris et toucher (multi-doigts)
+│   │   └── midi.js       Pad ou clavier MIDI (notes de batterie General MIDI)
 │   ├── ui/
 │   │   ├── drum-kit.js   Affichage du kit : renderDrumKit(container, kit)
 │   │   ├── kit-layout.js Placement de chaque pièce en paysage et en portrait (données)
@@ -62,7 +64,7 @@ tambour/
 ## Principes
 
 1. **L'audio ne dépend pas de l'interface.** `audio/` ne touche jamais au DOM. L'interface appelle le moteur, jamais l'inverse.
-2. **Les entrées émettent des événements.** Clavier et pointeur produisent un même événement `hit` (`{ pieceId, velocity }`), que `main.js` relie au moteur audio et à l'animation.
+2. **Les entrées émettent des événements.** Clavier, pointeur et MIDI produisent un même événement `hit` (`{ pieceId, velocity }`), que `main.js` relie au moteur audio et à l'animation.
 3. **Les kits sont des données.** Ajouter un kit revient à ajouter un dossier de sons et une entrée dans `kits.js`, sans toucher au reste du code.
 4. **Le contexte audio démarre sur une action de l'utilisateur**, comme l'exigent les navigateurs (premier clic ou première touche).
 5. **L'enregistrement garde les frappes, pas le son.** Chaque frappe est notée (pièce, vélocité, heure), ce qui permet une réécoute sans perte, éventuellement avec un autre kit.
@@ -70,9 +72,9 @@ tambour/
 ## Flux d'une frappe
 
 ```
-Touche / doigt ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(soundId, velocity, time)
-                                                             ├──► ui/hit-animation.animateHit(pieceId, velocity, point)
-                                                             └──► music.captureHit(hit)   (enregistrement)
+Touche / doigt / MIDI ──► input/* ──► événement "hit" ──► main.js ──┬──► audio/engine.play(soundId, velocity, time)
+                                                                    ├──► ui/hit-animation.animateHit(pieceId, velocity, point)
+                                                                    └──► music.captureHit(hit)   (enregistrement)
 ```
 
 `main.js` initialise la partie musique avec `setupMusic({ engine, kits, root })`.
