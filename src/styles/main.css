@@ -1,0 +1,503 @@
+/*
+ * Mise en page et habillage du kit. Toutes les valeurs de couleur, police et espacement
+ * viennent de tokens.css ; ici on ne fait que les assembler.
+ */
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, var(--color-bg-accent), transparent 70%),
+    var(--color-bg);
+  transition:
+    background-color var(--duration-theme) ease,
+    color var(--duration-theme) ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+/* ---------- En-tête ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-brand);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.brand__dot {
+  display: inline-block;
+  width: 0.28em;
+  height: 0.28em;
+  margin-left: 0.08em;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.topbar__hint {
+  flex: 1;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ---------- Boutons et contrôles (partagés avec la zone #transport) ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: 500 var(--font-size-sm) / 1 var(--font-body);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+}
+
+.btn:hover {
+  background: var(--color-surface-strong);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn--icon {
+  width: 44px;
+  padding: 0;
+}
+
+.btn--primary {
+  border-color: transparent;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.btn--primary:hover {
+  background: var(--color-accent);
+  filter: brightness(1.08);
+}
+
+.btn--record::before {
+  content: '';
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--color-record);
+}
+
+.btn--record[aria-pressed='true'] {
+  border-color: var(--color-record);
+  color: var(--color-record);
+}
+
+.btn--record[aria-pressed='true']::before {
+  animation: record-pulse 1s ease-in-out infinite;
+}
+
+@keyframes record-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.control select,
+.control input[type='number'] {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+input[type='range'] {
+  accent-color: var(--color-accent);
+  min-height: 44px;
+}
+
+/* ---------- Zone des contrôles (boucles, tempo, enregistrement) ---------- */
+
+.transport {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3) var(--space-6);
+  margin: 0 var(--space-4) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-surface);
+}
+
+/* Tant qu'aucun contrôle n'y est ajouté, la zone ne prend pas de place. */
+.transport:empty {
+  display: none;
+}
+
+/* ---------- Scène ---------- */
+
+.stage {
+  container: stage / size;
+  display: grid;
+  place-items: center;
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  min-height: 0;
+}
+
+.drum-kit {
+  --stage-ratio: 2;
+
+  position: relative;
+  width: min(100cqw, 100cqh * var(--stage-ratio));
+  aspect-ratio: var(--stage-ratio);
+  /* Les doigts frappent : on évite défilement, zoom, sélection et menu contextuel. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+@container stage (orientation: portrait) {
+  .drum-kit {
+    /* Proche du format d'un téléphone en portrait, pour occuper toute la hauteur. */
+    --stage-ratio: 0.55;
+  }
+}
+
+/* Le tapis sous le kit, et sa lueur au rythme de la grosse caisse. */
+.drum-kit::before,
+.drum-kit__floor {
+  content: '';
+  position: absolute;
+  inset: 4% 2%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.drum-kit::before {
+  background: radial-gradient(closest-side, var(--color-floor), transparent);
+}
+
+.drum-kit__floor {
+  opacity: 0;
+  background: radial-gradient(closest-side at 50% 70%, var(--color-glow), transparent);
+}
+
+/* ---------- Pièce ---------- */
+
+.piece {
+  --x: var(--x-l);
+  --y: var(--y-l);
+  --size: var(--size-l);
+
+  container-type: inline-size;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  min-width: var(--hit-min-size);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  translate: -50% -50%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@container stage (orientation: portrait) {
+  .piece {
+    --x: var(--x-p);
+    --y: var(--y-p);
+    --size: var(--size-p);
+  }
+}
+
+.piece:focus-visible {
+  outline-offset: 4px;
+}
+
+.piece__body {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: var(--shadow-piece);
+}
+
+.piece__head {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.piece__ripples,
+.piece__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.piece__glow {
+  opacity: 0;
+  background: radial-gradient(circle, var(--color-glow), transparent 75%);
+}
+
+.ripple {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5cqw solid var(--color-ripple);
+  background: radial-gradient(circle, transparent 45%, var(--color-ripple-soft));
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+}
+
+/* Nom et touche, posés sur la pièce. */
+.piece__label {
+  position: absolute;
+  inset: auto 0 14%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqw;
+  pointer-events: none;
+}
+
+.piece__name {
+  max-width: 80%;
+  padding: 1cqw 4cqw;
+  border-radius: var(--radius-pill);
+  background: var(--color-key-bg);
+  color: var(--color-key-text);
+  font-size: clamp(0.625rem, 9cqw, var(--font-size-sm));
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.piece__key {
+  min-width: 2.2em;
+  padding: 0.2em 0.5em;
+  border-radius: var(--radius-sm);
+  background: var(--color-key-bg);
+  color: var(--color-key-text);
+  font: 600 clamp(0.625rem, 10cqw, var(--font-size-md)) / 1.2 var(--font-body);
+  text-align: center;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* Sur les petites pièces, la touche suffit. */
+@container (max-width: 72px) {
+  .piece__name {
+    display: none;
+  }
+}
+
+/* Écrans tactiles sans clavier : les touches n'apportent rien. */
+@media (hover: none) and (pointer: coarse) {
+  .piece__key {
+    display: none;
+  }
+}
+
+/* ---------- Matières ---------- */
+
+/* Fût en bois, cercle chromé avec ses tirants, peau sablée. */
+.piece--drum .piece__body,
+.piece--snare .piece__body,
+.piece--kick .piece__body {
+  background:
+    repeating-conic-gradient(from 0deg, var(--chrome-dark) 0 3deg, transparent 3deg 45deg),
+    conic-gradient(
+      from 200deg,
+      var(--chrome-light),
+      var(--chrome-mid),
+      var(--chrome-dark),
+      var(--chrome-mid),
+      var(--chrome-light),
+      var(--chrome-mid),
+      var(--chrome-light)
+    );
+  outline: 3cqw solid var(--wood-mid);
+  outline-offset: -1px;
+}
+
+.piece--drum .piece__head,
+.piece--snare .piece__head {
+  inset: 7%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 60%, rgba(0, 0, 0, 0.08) 68%, transparent 70%),
+    radial-gradient(circle at 38% 32%, var(--skin-light), var(--skin-mid) 55%, var(--skin-dark));
+  box-shadow: inset 0 0 0 1.5cqw rgba(0, 0, 0, 0.12);
+}
+
+/* La caisse claire porte une pastille centrale et un fût plus sombre. */
+.piece--snare .piece__body {
+  outline-color: var(--wood-dark);
+}
+
+.piece--snare .piece__head::before {
+  content: '';
+  position: absolute;
+  inset: 40%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* Grosse caisse : peau noire avec le logo du kit. */
+.piece--kick .piece__body {
+  outline-width: 5cqw;
+  outline-color: var(--wood-dark);
+}
+
+.piece--kick .piece__head {
+  inset: 6%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 40% 35%, var(--kick-skin-light), var(--kick-skin) 70%);
+}
+
+.piece__logo {
+  margin-bottom: 30%;
+  padding: 3cqw 7cqw;
+  border: 1cqw solid var(--kick-logo);
+  border-radius: var(--radius-pill);
+  color: var(--kick-logo);
+  font: 800 clamp(0.625rem, 10cqw, 1.5rem) / 1 var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+/* Cymbales : laiton tourné, cloche au centre, reflets en éventail. */
+.piece--cymbal .piece__body,
+.piece--hihat .piece__body {
+  background:
+    radial-gradient(
+      circle,
+      var(--brass-hole) 0 2.5%,
+      var(--brass-light) 3% 14%,
+      var(--brass-dark) 16%,
+      transparent 18%
+    ),
+    repeating-radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 0 0.6cqw,
+      rgba(0, 0, 0, 0.08) 0.6cqw 1.4cqw
+    ),
+    conic-gradient(
+      from 20deg,
+      var(--brass-light),
+      var(--brass-mid),
+      var(--brass-dark),
+      var(--brass-mid),
+      var(--brass-light),
+      var(--brass-mid),
+      var(--brass-dark),
+      var(--brass-mid),
+      var(--brass-light)
+    );
+  transform-origin: center;
+}
+
+/* Le charleston montre ses deux cymbales superposées. */
+.piece--hihat .piece__body {
+  box-shadow:
+    4cqw 5cqw 0 -1cqw var(--brass-dark),
+    var(--shadow-piece);
+}
+
+@media (max-width: 600px) {
+  .topbar__hint {
+    display: none;
+  }
+
+  .topbar {
+    justify-content: space-between;
+  }
+}
+
+/* ---------- Écrans bas (téléphone en paysage) ---------- */
+
+@media (max-height: 500px) {
+  .topbar {
+    padding-block: var(--space-2);
+  }
+
+  .topbar__hint {
+    visibility: hidden;
+  }
+
+  .transport {
+    margin-bottom: var(--space-2);
+    padding-block: var(--space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
