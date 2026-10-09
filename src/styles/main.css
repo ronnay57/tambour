@@ -371,59 +371,114 @@ input[type='range'] {
 
 /* ---------- Matières ---------- */
 
-/* Fût en bois, cercle chromé avec ses tirants, peau sablée. */
+/*
+ * Fûts vus de dessus, de l'extérieur vers le centre : fût laqué, cercle chromé posé dessus,
+ * tirants qui le serrent, puis la peau sablée avec son col sombre au bord et l'usure au centre.
+ */
 .piece--drum .piece__body,
 .piece--snare .piece__body,
 .piece--kick .piece__body {
   background:
-    repeating-conic-gradient(from 0deg, var(--chrome-dark) 0 3deg, transparent 3deg 45deg),
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.28), transparent 42%),
     conic-gradient(
-      from 200deg,
-      var(--chrome-light),
-      var(--chrome-mid),
-      var(--chrome-dark),
-      var(--chrome-mid),
-      var(--chrome-light),
-      var(--chrome-mid),
-      var(--chrome-light)
+      from 210deg,
+      var(--shell-mid),
+      var(--shell-dark),
+      var(--shell-mid),
+      var(--shell-light),
+      var(--shell-mid),
+      var(--shell-dark),
+      var(--shell-mid)
     );
-  outline: 3cqw solid var(--wood-mid);
-  outline-offset: -1px;
+}
+
+/* Le cercle chromé : un disque que la peau recouvre, il n'en reste visible que l'anneau. */
+.piece--drum .piece__body::before,
+.piece--snare .piece__body::before,
+.piece--kick .piece__body::before {
+  content: '';
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    var(--chrome-light),
+    var(--chrome-mid),
+    var(--chrome-dark),
+    var(--chrome-mid),
+    var(--chrome-light),
+    var(--chrome-mid),
+    var(--chrome-dark),
+    var(--chrome-light)
+  );
+  box-shadow:
+    0 0.8cqw 1.6cqw rgba(0, 0, 0, 0.35),
+    inset 0 0 0 0.5cqw rgba(255, 255, 255, 0.35);
+}
+
+/* Tirant : griffe chromée sur le cercle, tête de vis plus sombre. */
+.piece__lug {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5cqw;
+  height: 8cqw;
+  border-radius: 1.5cqw;
+  background: linear-gradient(
+    90deg,
+    var(--chrome-dark),
+    var(--chrome-light) 45%,
+    var(--chrome-mid)
+  );
+  box-shadow: 0 0.4cqw 0.8cqw rgba(0, 0, 0, 0.35);
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-44cqw);
+}
+
+.piece__lug::after {
+  content: '';
+  position: absolute;
+  top: 0.8cqw;
+  left: 50%;
+  width: 3cqw;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--chrome-light), var(--chrome-dark));
+  translate: -50% 0;
+}
+
+.piece--drum .piece__head,
+.piece--snare .piece__head,
+.piece--kick .piece__head {
+  inset: 10%;
+  box-shadow: 0 0 0 0.6cqw rgba(0, 0, 0, 0.25);
 }
 
 .piece--drum .piece__head,
 .piece--snare .piece__head {
-  inset: 7%;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 60%, rgba(0, 0, 0, 0.08) 68%, transparent 70%),
-    radial-gradient(circle at 38% 32%, var(--skin-light), var(--skin-mid) 55%, var(--skin-dark));
-  box-shadow: inset 0 0 0 1.5cqw rgba(0, 0, 0, 0.12);
+    radial-gradient(circle, transparent 0 84%, var(--skin-collar) 93%, var(--skin-edge) 100%),
+    radial-gradient(circle, var(--skin-wear) 0 10%, transparent 26%),
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.75), transparent 48%),
+    var(--texture-coated),
+    radial-gradient(circle, var(--skin-light), var(--skin-mid) 70%, var(--skin-dark));
 }
 
-/* La caisse claire porte une pastille centrale et un fût plus sombre. */
+/* Caisse claire : fût métal, plus de tirants, peau un peu plus claire. */
 .piece--snare .piece__body {
-  outline-color: var(--wood-dark);
-}
-
-.piece--snare .piece__head::before {
-  content: '';
-  position: absolute;
-  inset: 40%;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.07);
+  --shell-light: var(--chrome-light);
+  --shell-mid: var(--chrome-mid);
+  --shell-dark: var(--chrome-dark);
 }
 
 /* Grosse caisse : peau noire avec le logo du kit. */
-.piece--kick .piece__body {
-  outline-width: 5cqw;
-  outline-color: var(--wood-dark);
-}
-
 .piece--kick .piece__head {
-  inset: 6%;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 40% 35%, var(--kick-skin-light), var(--kick-skin) 70%);
+  background:
+    radial-gradient(circle, transparent 0 86%, rgba(0, 0, 0, 0.5) 100%),
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.14), transparent 45%),
+    var(--texture-coated),
+    radial-gradient(circle at 40% 35%, var(--kick-skin-light), var(--kick-skin) 70%);
 }
 
 .piece__logo {

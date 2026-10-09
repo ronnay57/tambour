@@ -18,6 +18,7 @@
 /**
  * @typedef {object} PieceLayout
  * @property {PieceLook} look Matière et animation de la pièce.
+ * @property {number} [lugs] Nombre de tirants, si différent de celui du type de pièce.
  * @property {Placement} landscape
  * @property {Placement} portrait
  */
@@ -61,6 +62,7 @@ export const PIECE_LAYOUTS = {
   },
   'tom-low': {
     look: 'drum',
+    lugs: 8,
     landscape: { x: 67, y: 66, size: 17 },
     portrait: { x: 78, y: 62, size: 32 },
   },
