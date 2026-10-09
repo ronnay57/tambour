@@ -463,6 +463,32 @@ input[type='range'] {
     radial-gradient(circle, var(--skin-light), var(--skin-mid) 70%, var(--skin-dark));
 }
 
+/* Percussions à main (bongos, congas, darbuka…) : peau naturelle posée sur un fût en bois. */
+.piece--hand .piece__body {
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.22), transparent 42%),
+    conic-gradient(
+      from 210deg,
+      var(--wood-mid),
+      var(--wood-dark),
+      var(--wood-mid),
+      var(--wood-light),
+      var(--wood-mid),
+      var(--wood-dark),
+      var(--wood-mid)
+    );
+}
+
+.piece--hand .piece__head {
+  inset: 7%;
+  box-shadow: 0 0 0 0.6cqw rgba(0, 0, 0, 0.3);
+  background:
+    radial-gradient(circle, transparent 0 80%, var(--skin-collar) 92%, var(--skin-edge) 100%),
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.5), transparent 48%),
+    var(--texture-coated),
+    radial-gradient(circle, var(--hide-light), var(--hide-mid) 70%, var(--hide-dark));
+}
+
 /* Caisse claire : fût métal, plus de tirants, peau un peu plus claire. */
 .piece--snare .piece__body {
   --shell-light: var(--chrome-light);
