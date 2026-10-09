@@ -1,0 +1,472 @@
+{
+  "id": "acoustic",
+  "name": "Batterie acoustique",
+  "sampleRate": 44100,
+  "pieces": [
+    {
+      "id": "kick",
+      "name": "Grosse caisse",
+      "gain": 1.0,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "kick-v1-1",
+            "kick-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "kick-v2-1",
+            "kick-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "kick-v3-1",
+            "kick-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snare",
+      "name": "Caisse claire",
+      "gain": 0.9,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "snare-v1-1",
+            "snare-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "snare-v2-1",
+            "snare-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "snare-v3-1",
+            "snare-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snare-rimshot",
+      "name": "Caisse claire (rimshot)",
+      "gain": 0.9,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "snare-rimshot-v1-1",
+            "snare-rimshot-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "snare-rimshot-v2-1",
+            "snare-rimshot-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "snare-rimshot-v3-1",
+            "snare-rimshot-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snare-sidestick",
+      "name": "Caisse claire (cross-stick)",
+      "gain": 0.7,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "snare-sidestick-v1-1",
+            "snare-sidestick-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "snare-sidestick-v2-1",
+            "snare-sidestick-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "snare-sidestick-v3-1",
+            "snare-sidestick-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tom-high",
+      "name": "Tom aigu",
+      "gain": 0.85,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "tom-high-v1-1",
+            "tom-high-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "tom-high-v2-1",
+            "tom-high-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "tom-high-v3-1",
+            "tom-high-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tom-mid",
+      "name": "Tom médium",
+      "gain": 0.85,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "tom-mid-v1-1",
+            "tom-mid-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "tom-mid-v2-1",
+            "tom-mid-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "tom-mid-v3-1",
+            "tom-mid-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tom-floor",
+      "name": "Tom basse",
+      "gain": 0.9,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "tom-floor-v1-1",
+            "tom-floor-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "tom-floor-v2-1",
+            "tom-floor-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "tom-floor-v3-1",
+            "tom-floor-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hihat-closed",
+      "name": "Charleston fermé",
+      "gain": 0.55,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "hihat-closed-v1-1",
+            "hihat-closed-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "hihat-closed-v2-1",
+            "hihat-closed-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "hihat-closed-v3-1",
+            "hihat-closed-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hihat-open",
+      "name": "Charleston ouvert",
+      "gain": 0.55,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "hihat-open-v1-1",
+            "hihat-open-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "hihat-open-v2-1",
+            "hihat-open-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "hihat-open-v3-1",
+            "hihat-open-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hihat-pedal",
+      "name": "Charleston au pied",
+      "gain": 0.45,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "hihat-pedal-v1-1",
+            "hihat-pedal-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "hihat-pedal-v2-1",
+            "hihat-pedal-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "hihat-pedal-v3-1",
+            "hihat-pedal-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crash",
+      "name": "Crash",
+      "gain": 0.6,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "crash-v1-1",
+            "crash-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "crash-v2-1",
+            "crash-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "crash-v3-1",
+            "crash-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "splash",
+      "name": "Splash",
+      "gain": 0.5,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "splash-v1-1",
+            "splash-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "splash-v2-1",
+            "splash-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "splash-v3-1",
+            "splash-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ride",
+      "name": "Ride",
+      "gain": 0.5,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "ride-v1-1",
+            "ride-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "ride-v2-1",
+            "ride-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "ride-v3-1",
+            "ride-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ride-bell",
+      "name": "Ride (cloche)",
+      "gain": 0.5,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "ride-bell-v1-1",
+            "ride-bell-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "ride-bell-v2-1",
+            "ride-bell-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "ride-bell-v3-1",
+            "ride-bell-v3-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cowbell",
+      "name": "Cloche (cowbell)",
+      "gain": 0.45,
+      "velocities": [
+        {
+          "layer": "v1",
+          "max": 0.45,
+          "files": [
+            "cowbell-v1-1",
+            "cowbell-v1-2"
+          ]
+        },
+        {
+          "layer": "v2",
+          "max": 0.72,
+          "files": [
+            "cowbell-v2-1",
+            "cowbell-v2-2"
+          ]
+        },
+        {
+          "layer": "v3",
+          "max": 1.0,
+          "files": [
+            "cowbell-v3-1",
+            "cowbell-v3-2"
+          ]
+        }
+      ]
+    }
+  ]
+}
