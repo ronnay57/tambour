@@ -1,37 +1,47 @@
 /**
- * Point d'entrée : assemble l'interface, les entrées et le moteur audio.
+ * Point d'entrée : relie entrées, moteur audio et interface.
  */
 
-import { renderDrumKit, animateHit } from './ui/drum-kit.js';
+import './styles/tokens.css';
+import './styles/main.css';
+import { createEngine } from './audio/engine.js';
+import { KITS } from './audio/kits.js';
+import { getKeyLabels, listenToKeyboard } from './input/keyboard.js';
+import { listenToPointer } from './input/pointer.js';
+import { animateHit, renderDrumKit } from './ui/drum-kit.js';
 import { initTheme } from './ui/theme.js';
-import { PREVIEW_KIT } from './ui/preview-kit.js';
 
-const kitContainer = document.querySelector('#drum-kit');
-const themeToggle = document.querySelector('#theme-toggle');
+const kit = KITS[0];
+const kitElement = document.querySelector('#drum-kit');
+const hintElement = document.querySelector('#hint');
 
-initTheme(themeToggle);
-renderDrumKit(kitContainer, PREVIEW_KIT);
+initTheme(document.querySelector('#theme-toggle'));
 
-/*
- * Entrées d'aperçu, le temps que `input/keyboard.js` et `input/pointer.js` arrivent avec le
- * prototype jouable : elles seules déclencheront alors `animateHit` et le moteur audio.
- */
-const PREVIEW_VELOCITY = 0.8;
-const keyToPiece = new Map(PREVIEW_KIT.pieces.map((piece) => [piece.key, piece.id]));
+// BASE_URL suit la configuration Vite, pour que les sons se trouvent aussi sous /tambour/.
+const engine = createEngine({ soundsUrl: `${import.meta.env.BASE_URL}sounds/` });
 
-kitContainer.addEventListener('pointerdown', (event) => {
-  const piece = event.target.closest('[data-piece-id]');
-  if (!piece) return;
-  event.preventDefault();
-  animateHit(piece.dataset.pieceId, PREVIEW_VELOCITY, {
-    x: event.clientX,
-    y: event.clientY,
-  });
-});
+/** @param {import('./input/keyboard.js').Hit} hit */
+function handleHit(hit) {
+  // Le son passe avant l'animation : c'est lui dont on perçoit le retard.
+  engine.play(hit.pieceId, hit.velocity);
+  animateHit(kitElement, hit.pieceId, hit.velocity, hit);
+}
 
-window.addEventListener('keydown', (event) => {
-  const pieceId = keyToPiece.get(event.key.toLowerCase());
-  if (!pieceId || event.repeat) return;
-  event.preventDefault();
-  animateHit(pieceId, PREVIEW_VELOCITY);
-});
+// Le navigateur n'autorise le son qu'après un geste : on débloque au tout premier appui,
+// en capture pour passer avant la frappe elle-même.
+function unlockAudio() {
+  engine.unlock();
+  hintElement.hidden = true;
+  window.removeEventListener('pointerdown', unlockAudio, true);
+  window.removeEventListener('keydown', unlockAudio, true);
+}
+window.addEventListener('pointerdown', unlockAudio, true);
+window.addEventListener('keydown', unlockAudio, true);
+
+renderDrumKit(kitElement, kit, await getKeyLabels(kit));
+listenToPointer(kitElement, handleHit);
+listenToKeyboard(kit, handleHit);
+engine.loadKit(kit);
+
+// Accès depuis la console pour essayer le moteur (ex. : tambour.engine.play('snare')).
+window.tambour = { engine, kit };

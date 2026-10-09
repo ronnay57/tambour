@@ -1,2 +1,5 @@
-docs/
+dist/
+node_modules/
+package-lock.json
+# La documentation est mise en forme à la main.
 *.md

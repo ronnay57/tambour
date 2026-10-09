@@ -6,94 +6,86 @@
  * touchée grâce à l'attribut `data-piece-id`.
  */
 
-import { getPieceLayout, hasDedicatedLayout } from './kit-layout.js';
+import { getPieceLayout, hasDedicatedLayout, isCompactKit } from './kit-layout.js';
 import { playHitAnimation } from './hit-animation.js';
 
 const DEFAULT_VELOCITY = 0.8;
 const KICK_LOGO_TEXT = 'Tambour';
-const KEY_LABELS = { ' ': 'Espace', Space: 'Espace', Enter: 'Entrée' };
-
-/** @type {Map<string, HTMLElement>} */
-const pieceElements = new Map();
-/** @type {HTMLElement | null} */
-let floorElement = null;
+const CENTER = 0.5;
 
 /**
- * @typedef {object} KitPiece
- * @property {string} id Identifiant stable, partagé avec le moteur audio.
- * @property {string} name Nom affiché.
- * @property {string} [key] Touche clavier associée, affichée sur la pièce.
- */
-
-/**
- * @typedef {object} Kit
- * @property {string} id
- * @property {string} name
- * @property {KitPiece[]} pieces
+ * @typedef {import('../audio/kits.js').Kit} Kit
+ * @typedef {import('../audio/kits.js').Piece} Piece
  */
 
 /**
  * Dessine le kit dans le conteneur, en remplaçant un éventuel kit précédent.
  * @param {HTMLElement} container Élément `#drum-kit`.
  * @param {Kit} kit
+ * @param {Map<string, string>} [keyLabels] Touche affichée par pièce (voir `input/keyboard.js`).
  * @returns {void}
  */
-export function renderDrumKit(container, kit) {
-  pieceElements.clear();
-  container.replaceChildren();
+export function renderDrumKit(container, kit, keyLabels = new Map()) {
   container.dataset.kitId = kit.id;
   container.setAttribute('aria-label', `Kit : ${kit.name}`);
 
-  floorElement = createElement('div', 'drum-kit__floor');
-  floorElement.setAttribute('aria-hidden', 'true');
-  container.append(floorElement);
+  const floor = createElement('div', 'drum-kit__floor');
+  floor.setAttribute('aria-hidden', 'true');
 
+  const compact = isCompactKit(kit.pieces.map((piece) => piece.id));
   const unknownPieces = kit.pieces.filter((piece) => !hasDedicatedLayout(piece.id));
-  for (const piece of kit.pieces) {
-    const element = createPieceElement(piece, unknownPieces.indexOf(piece), unknownPieces.length);
-    pieceElements.set(piece.id, element);
-    container.append(element);
-  }
+  const pieces = kit.pieces.map((piece) =>
+    createPieceElement(piece, keyLabels.get(piece.id) ?? '', {
+      compact,
+      fallbackIndex: unknownPieces.indexOf(piece),
+      fallbackCount: unknownPieces.length,
+    }),
+  );
+  container.replaceChildren(floor, ...pieces);
 }
 
 /**
  * Anime la frappe d'une pièce : compression de la peau, onde depuis le point d'impact,
  * lueur proportionnelle à la vélocité. Sans effet si la pièce n'est pas affichée.
+ * @param {HTMLElement} container Conteneur passé à `renderDrumKit`.
  * @param {string} pieceId
  * @param {number} [velocity] Force de la frappe, de 0 à 1.
- * @param {{ x: number, y: number }} [point] Point d'impact en coordonnées client ; le centre par défaut.
+ * @param {{ x?: number, y?: number }} [point] Point d'impact dans la pièce, de 0 à 1 ;
+ *   le centre par défaut (frappe au clavier).
  * @returns {void}
  */
-export function animateHit(pieceId, velocity = DEFAULT_VELOCITY, point) {
-  const element = pieceElements.get(pieceId);
+export function animateHit(container, pieceId, velocity = DEFAULT_VELOCITY, point = {}) {
+  const element = container.querySelector(`[data-piece-id="${CSS.escape(pieceId)}"]`);
   if (!element) return;
-  playHitAnimation(element, clamp(velocity, 0, 1), point, floorElement);
+  const { x = CENTER, y = CENTER } = point;
+  playHitAnimation(
+    element,
+    clamp(velocity, 0, 1),
+    { x, y },
+    container.querySelector('.drum-kit__floor'),
+  );
 }
 
 /**
- * Renvoie l'élément d'une pièce affichée, par exemple pour y attacher un retour visuel.
- * @param {string} pieceId
- * @returns {HTMLElement | undefined}
- */
-export function getPieceElement(pieceId) {
-  return pieceElements.get(pieceId);
-}
-
-/**
- * @param {KitPiece} piece
- * @param {number} fallbackIndex
- * @param {number} fallbackCount
+ * @param {Piece} piece
+ * @param {string} keyLabel
+ * @param {{ compact: boolean, fallbackIndex: number, fallbackCount: number }} options
  * @returns {HTMLElement}
  */
-function createPieceElement(piece, fallbackIndex, fallbackCount) {
-  const { look, landscape, portrait } = getPieceLayout(piece.id, fallbackIndex, fallbackCount);
+function createPieceElement(piece, keyLabel, { compact, fallbackIndex, fallbackCount }) {
+  const { look, landscape, portrait } = getPieceLayout(
+    piece.id,
+    fallbackIndex,
+    fallbackCount,
+    compact,
+  );
 
-  // Un bouton rend la pièce atteignable au clavier et lisible par les lecteurs d'écran.
   const element = createElement('button', `piece piece--${look}`);
   element.type = 'button';
   element.dataset.pieceId = piece.id;
   element.dataset.look = look;
-  const keyLabel = piece.key ? formatKey(piece.key) : '';
+  // Le clavier joue déjà les pièces : le bouton ne doit pas voler le focus ni la touche Espace.
+  element.tabIndex = -1;
   element.setAttribute('aria-label', keyLabel ? `${piece.name} (touche ${keyLabel})` : piece.name);
   setPlacement(element, 'l', landscape);
   setPlacement(element, 'p', portrait);
@@ -144,15 +136,6 @@ function createElement(tag, className) {
   const element = document.createElement(tag);
   element.className = className;
   return element;
-}
-
-/**
- * Libellé lisible d'une touche (`' '` devient « Espace »).
- * @param {string} key
- * @returns {string}
- */
-function formatKey(key) {
-  return KEY_LABELS[key] ?? key.toUpperCase();
 }
 
 function clamp(value, min, max) {

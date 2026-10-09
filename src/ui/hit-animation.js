@@ -30,7 +30,7 @@ const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
  * Joue l'animation complète d'une frappe sur une pièce.
  * @param {HTMLElement} piece Élément `.piece`.
  * @param {number} velocity Force de 0 à 1.
- * @param {{ x: number, y: number } | undefined} point Point d'impact en coordonnées client.
+ * @param {{ x: number, y: number }} point Point d'impact dans la pièce, de 0 à 1.
  * @param {HTMLElement | null} floor Sol de la scène, qui réagit à la grosse caisse.
  * @returns {void}
  */
@@ -85,7 +85,7 @@ function compressSkin(head, velocity) {
 function tiltCymbal(body, velocity, point, isHihat) {
   if (!body) return;
   const maxTilt = (isHihat ? HIHAT_MAX_TILT_DEG : CYMBAL_MAX_TILT_DEG) * velocity;
-  const { dx, dy } = point ? relativeOffset(body, point) : { dx: 0, dy: -1 };
+  const { dx, dy } = centeredOffset(point);
   // L'axe de bascule est perpendiculaire à la direction du point d'impact.
   const axis = `${-dy || 0.001}, ${dx}, 0`;
   const tilt = (ratio) => `perspective(600px) rotate3d(${axis}, ${maxTilt * ratio}deg)`;
@@ -108,7 +108,7 @@ function spawnRipple(head, velocity, point) {
   if (!layer) return;
   while (layer.childElementCount >= MAX_RIPPLES_PER_PIECE) layer.firstElementChild?.remove();
 
-  const { dx, dy } = point ? relativeOffset(head, point) : { dx: 0, dy: 0 };
+  const { dx, dy } = centeredOffset(point);
   const ripple = document.createElement('span');
   ripple.className = 'ripple';
   ripple.style.left = `${50 + dx * 50}%`;
@@ -152,14 +152,11 @@ function pulseFloor(floor, velocity) {
 }
 
 /**
- * Position du point d'impact par rapport au centre de l'élément, entre -1 et 1 sur chaque axe.
+ * Position du point d'impact par rapport au centre, entre -1 et 1 sur chaque axe.
+ * @param {{ x: number, y: number }} point Coordonnées de 0 à 1 dans la pièce.
  * @returns {{ dx: number, dy: number }}
  */
-function relativeOffset(element, point) {
-  const rect = element.getBoundingClientRect();
+function centeredOffset({ x, y }) {
   const clampUnit = (value) => Math.max(-1, Math.min(1, value));
-  return {
-    dx: clampUnit((point.x - (rect.left + rect.width / 2)) / (rect.width / 2)),
-    dy: clampUnit((point.y - (rect.top + rect.height / 2)) / (rect.height / 2)),
-  };
+  return { dx: clampUnit((x - 0.5) * 2), dy: clampUnit((y - 0.5) * 2) };
 }

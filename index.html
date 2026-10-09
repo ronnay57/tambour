@@ -2,7 +2,10 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
     <meta name="theme-color" content="#f4ecdf" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#120f0d" media="(prefers-color-scheme: dark)" />
     <title>Tambour</title>
@@ -12,14 +15,12 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap"
     />
-    <link rel="stylesheet" href="./src/styles/tokens.css" />
-    <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
   <body>
     <div class="app">
       <header class="topbar">
         <h1 class="brand">Tambour<span class="brand__dot" aria-hidden="true"></span></h1>
-        <p class="topbar__hint">Frappe au doigt, à la souris ou au clavier</p>
+        <p class="topbar__hint" id="hint">Frappe une pièce, au doigt, à la souris ou au clavier</p>
         <button
           id="theme-toggle"
           class="btn btn--icon"

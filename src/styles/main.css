@@ -72,6 +72,14 @@ body {
 
 .topbar__hint {
   flex: 1;
+}
+
+/* Le bouton de thème reste à droite même quand l'indication disparaît après la première frappe. */
+.topbar .btn--icon {
+  margin-left: auto;
+}
+
+.topbar__hint {
   margin: 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);

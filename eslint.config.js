@@ -2,10 +2,16 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export const config = [
-  { ignores: ['dist/'] },
+  { ignores: ['dist/', 'node_modules/'] },
   js.configs.recommended,
-  { languageOptions: { globals: { ...globals.browser } } },
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: { ...globals.browser },
+    },
+  },
 ];
 
-// ESLint exige un export par défaut pour sa configuration : exception à la règle des exports nommés.
+// ESLint exige un export par défaut pour son fichier de configuration.
 export default config;
