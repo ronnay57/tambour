@@ -7,7 +7,8 @@
 //   chaque pas, un décalage en demi-tons depuis la fondamentale, ou `null` ;
 // - `shaker` (16 pas) donne l'intensité d'un petit bruit percussif, de 0 à 1 ;
 // - `drums` propose une partie rythmique par famille de kit (`drumset` pour
-//   les batteries, `percussion` pour les percussions du monde). Chaque partie
+//   les batteries, `percussion` pour les percussions du monde, `electronic`
+//   quand la batterie électronique n'a pas les pièces de `drumset`). Chaque partie
 //   associe à des pièces une grille de 16 caractères : `x` frappe forte,
 //   `o` moyenne, `-` douce, `.` silence. On joue la partie dont le kit courant
 //   possède le plus de pièces ; les pièces absentes sont ignorées.
@@ -88,6 +89,12 @@ export const PATTERNS = [
         'bongo-high': 'o.o.o.oo.o.o.o.o',
         clap: '....-.......-...',
       },
+      electronic: {
+        kick: 'x.......x.x.....',
+        clave: '...o..o....o..o.',
+        cowbell: 'o.o.o.oo.o.o.o.o',
+        'hihat-closed': '....-.......-...',
+      },
     },
   },
   {
@@ -113,6 +120,11 @@ export const PATTERNS = [
         'frame-low': 'o......o..o.....',
         'darbuka-tek': '....o.......o...',
         'darbuka-ka': '-.-.-.--.-.-.-.-',
+      },
+      electronic: {
+        kick: 'o......o..o.....',
+        clap: '....o.......o...',
+        'hihat-closed': '-.-.-.--.-.-.-.-',
       },
     },
   },

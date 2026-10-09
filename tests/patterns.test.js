@@ -76,3 +76,52 @@ test('pickDrumPart choisit la partie jouable avec le kit courant', () => {
     );
   }
 });
+
+test('chaque ambiance joue toutes ses pièces avec chacun des kits', () => {
+  const drumset = [
+    'kick',
+    'snare',
+    'snare-rimshot',
+    'snare-sidestick',
+    'tom-high',
+    'tom-mid',
+    'tom-floor',
+    'hihat-closed',
+    'hihat-open',
+    'hihat-pedal',
+    'crash',
+    'splash',
+    'ride',
+    'ride-bell',
+    'cowbell',
+  ];
+  const electronic = [
+    'kick',
+    'kick-boom',
+    'snare',
+    'clap',
+    'snare-rimshot',
+    'tom-high',
+    'tom-mid',
+    'tom-floor',
+    'hihat-closed',
+    'hihat-open',
+    'crash',
+    'ride',
+    'cowbell',
+    'clave',
+  ];
+  for (const kit of [new Set(drumset), new Set(electronic)]) {
+    for (const pattern of PATTERNS) {
+      const part = pickDrumPart(pattern, kit);
+      assert.ok(
+        Object.keys(part).every((id) => kit.has(id)),
+        pattern.id,
+      );
+    }
+  }
+  assert.equal(
+    pickDrumPart(findPattern('afro'), new Set(drumset)),
+    findPattern('afro').drums.drumset,
+  );
+});
