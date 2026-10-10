@@ -5,6 +5,7 @@ Toutes les évolutions visibles du projet sont listées ici, de la plus récente
 ## [Non publié]
 
 ### Ajouté
+- Site installable sur téléphone et ordinateur, et jouable hors ligne : l'interface est gardée dès la première visite, les sons au fil de l'écoute.
 - Prototype jouable : kit de 6 pièces jouable à la souris, au doigt (multi-doigts), au clavier et avec un pad MIDI, avec une légère réverbération de pièce.
 - Boucles d'accompagnement en quatre ambiances (Groove, Afro, Lo-fi, Électro) avec basse, nappe, shaker et batterie du kit, réglage du tempo de 50 à 180 BPM et métronome.
 - Kit « Batterie acoustique » : 15 pièces enregistrées (grosse caisse, caisse claire, rimshot, cross-stick, 3 toms, charleston fermé, ouvert et au pied, crash, splash, ride, cloche de ride, cowbell) en 3 vélocités, tirées de la bibliothèque libre VCSL.

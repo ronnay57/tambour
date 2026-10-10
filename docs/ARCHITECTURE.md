@@ -9,6 +9,7 @@
 | Audio | Web Audio API | Latence faible, lecture simultanée de nombreux sons, effets |
 | Interface | HTML + CSS (variables CSS), sans framework | Le site est une seule page interactive ; un framework n'apporterait pas grand-chose |
 | Hébergement | GitHub Pages | Gratuit, lié au dépôt |
+| Hors ligne | [vite-plugin-pwa](https://vite-pwa-org.netlify.app) (Workbox) | Site installable ; interface en cache dès la première visite, sons mis en cache à l'écoute (18 Mo au total, trop pour tout précharger) |
 
 Ces choix peuvent évoluer ; toute modification est notée ici avec sa raison.
 
@@ -17,6 +18,7 @@ Ces choix peuvent évoluer ; toute modification est notée ici avec sa raison.
 ```
 tambour/
 ├── index.html            Page unique
+├── public/icons/         Icônes de l'application installée (générées depuis favicon.svg)
 ├── public/sounds/
 │   ├── README.md         Liste des kits, des pièces et de leurs identifiants
 │   ├── acoustic/         Batterie acoustique (échantillons VCSL, CC0)
