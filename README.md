@@ -27,4 +27,8 @@ Un tambour en ligne, jouable au clavier, à la souris et au toucher, avec de bea
 npm install
 npm run dev      # serveur local avec rechargement
 npm run build    # version de production dans dist/
+npm test         # tests unitaires
+npm run test:e2e # tests navigateur et accessibilité (Playwright)
 ```
+
+Avant le premier `npm run test:e2e`, installer le navigateur de test : `npx playwright install chromium`.
