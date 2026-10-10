@@ -1,3 +1,7 @@
+# Rapports des tests navigateur
+test-results/
+playwright-report/
+
 node_modules/
 dist/
 .DS_Store
