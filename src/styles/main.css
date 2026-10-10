@@ -37,6 +37,8 @@ body {
 
 .app {
   display: grid;
+  /* minmax(0, …) : un contenu large ne doit jamais élargir la page au-delà de l'écran. */
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto;
   height: 100dvh;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
@@ -164,7 +166,7 @@ body {
 .control input[type='number'] {
   min-height: 44px;
   padding: 0 var(--space-3);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-field-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-text);
@@ -192,6 +194,40 @@ input[type='range'] {
   box-shadow: var(--shadow-surface);
 }
 
+/*
+ * Téléphone (debout ou couché) : les contrôles tiennent sur une seule ligne que l'on fait
+ * défiler du doigt, pour laisser au kit l'essentiel de la hauteur.
+ */
+@media (max-width: 600px), (max-height: 500px) {
+  .transport {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: var(--space-4);
+    margin-inline: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--space-3);
+    scrollbar-width: none;
+    /* Fondu à droite : signale qu'il reste des contrôles à faire défiler. */
+    mask-image: linear-gradient(to right, #000 85%, transparent);
+  }
+
+  .transport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .transport .control {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .transport input[type='range'] {
+    width: 7rem;
+  }
+}
+
 /* Tant qu'aucun contrôle n'y est ajouté, la zone ne prend pas de place. */
 .transport:empty {
   display: none;
@@ -203,16 +239,26 @@ input[type='range'] {
   container: stage / size;
   display: grid;
   place-items: center;
+  /* Évite le zoom au double appui sur la scène, sans bloquer le zoom de la page. */
+  touch-action: manipulation;
   padding: var(--space-2) var(--space-4) var(--space-4);
   min-height: 0;
 }
 
+/*
+ * Le kit occupe toute la scène disponible. Les positions sont en % de la scène ; la taille des
+ * pièces suit la plus contraignante des deux dimensions, rapportée à la proportion de référence
+ * (--stage-ratio) pour laquelle les placements de kit-layout.js ont été calculés.
+ */
 .drum-kit {
   --stage-ratio: 2;
 
+  container: kit / size;
   position: relative;
-  width: min(100cqw, 100cqh * var(--stage-ratio));
-  aspect-ratio: var(--stage-ratio);
+  width: 100%;
+  height: 100%;
+  max-width: calc(100cqh * var(--stage-ratio) * 1.2);
+  max-height: calc(100cqw / var(--stage-ratio) * 1.2);
   /* Les doigts frappent : on évite défilement, zoom, sélection et menu contextuel. */
   touch-action: none;
   user-select: none;
@@ -222,7 +268,6 @@ input[type='range'] {
 
 @container stage (orientation: portrait) {
   .drum-kit {
-    /* Proche du format d'un téléphone en portrait, pour occuper toute la hauteur. */
     --stage-ratio: 0.55;
   }
 }
@@ -257,7 +302,7 @@ input[type='range'] {
   position: absolute;
   left: var(--x);
   top: var(--y);
-  width: var(--size);
+  width: calc(var(--size) * min(1cqw, 1cqh * var(--stage-ratio)));
   min-width: var(--hit-min-size);
   aspect-ratio: 1;
   padding: 0;

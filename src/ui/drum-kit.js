@@ -141,7 +141,8 @@ function createLugs(count) {
 function setPlacement(element, suffix, { x, y, size }) {
   element.style.setProperty(`--x-${suffix}`, `${x}%`);
   element.style.setProperty(`--y-${suffix}`, `${y}%`);
-  element.style.setProperty(`--size-${suffix}`, `${size}%`);
+  // Nombre sans unité : main.css le multiplie par l'unité de scène la plus contraignante.
+  element.style.setProperty(`--size-${suffix}`, String(size));
 }
 
 /**

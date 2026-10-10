@@ -68,6 +68,8 @@
   --color-surface: #fffaf1;
   --color-surface-strong: #ffffff;
   --color-border: #d8c6a8;
+  /* Bordure des champs : 3:1 au moins contre la surface (WCAG 1.4.11). */
+  --color-field-border: #9a7f5c;
   --color-text: #2a1f17;
   --color-text-muted: #6f5e4c;
   --color-accent: #c8462a;
@@ -93,6 +95,7 @@
   --color-surface: #1d1814;
   --color-surface-strong: #272019;
   --color-border: #3a3027;
+  --color-field-border: #8a765f;
   --color-text: #f3e9d6;
   --color-text-muted: #ad9c86;
   --color-accent: #ff7a4d;
@@ -119,6 +122,7 @@
     --color-surface: #1d1814;
     --color-surface-strong: #272019;
     --color-border: #3a3027;
+    --color-field-border: #8a765f;
     --color-text: #f3e9d6;
     --color-text-muted: #ad9c86;
     --color-accent: #ff7a4d;
